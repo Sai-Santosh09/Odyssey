@@ -1,0 +1,197 @@
+import React, { useState } from 'react';
+import { X, Star, MapPin, Calendar, Compass, ArrowRight, Sparkles, Check, Map as MapIcon, Image as ImageIcon, Plane, Navigation } from 'lucide-react';
+import { OdysseyLeafletMap } from './OdysseyLeafletMap';
+import { getDestinationDistance } from '../../services/locationService';
+
+export function DestinationModal({
+    destination,
+    isOpen,
+    onClose,
+    onPlanTripWithDestination,
+    currentLocation = 'Hyderabad, India',
+    currentCoords = null
+}) {
+    const [viewMode, setViewMode] = useState('photo'); // 'photo' | 'map'
+
+    if (!isOpen || !destination) return null;
+
+    const lat = destination.lat || 15.2993;
+    const lng = destination.lng || 74.1240;
+
+    const distInfo = getDestinationDistance(
+        currentLocation,
+        currentCoords,
+        destination.name,
+        { lat, lng }
+    );
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="bg-white dark:bg-[#131B2E] rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 dark:border-slate-800 p-0 animate-in zoom-in-95 duration-200 overflow-hidden transition-colors">
+                {/* Hero Media / Map Header */}
+                <div className="relative h-56 sm:h-64 bg-slate-900">
+                    {viewMode === 'map' ? (
+                        <div className="w-full h-full">
+                            <OdysseyLeafletMap
+                                lat={lat}
+                                lng={lng}
+                                userGpsCoords={currentCoords}
+                                zoom={12}
+                                locationName={destination.name}
+                                height="100%"
+                            />
+                        </div>
+                    ) : (
+                        <>
+                            <img
+                                src={destination.image}
+                                alt={destination.name}
+                                className="w-full h-full object-cover object-center"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/20" />
+                        </>
+                    )}
+
+                    {/* View Switcher (Photo vs Map) */}
+                    <div className="absolute top-4 left-4 flex items-center gap-1 bg-black/60 backdrop-blur-md p-1 rounded-xl z-20">
+                        <button
+                            onClick={() => setViewMode('photo')}
+                            className={`px-2 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 ${
+                                viewMode === 'photo'
+                                    ? 'bg-[#F06536] text-white shadow-xs'
+                                    : 'text-white/80 hover:text-white'
+                            }`}
+                        >
+                            <ImageIcon className="w-3 h-3" />
+                            <span>Photo</span>
+                        </button>
+                        <button
+                            onClick={() => setViewMode('map')}
+                            className={`px-2 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 ${
+                                viewMode === 'map'
+                                    ? 'bg-[#F06536] text-white shadow-xs'
+                                    : 'text-white/80 hover:text-white'
+                            }`}
+                        >
+                            <MapIcon className="w-3 h-3" />
+                            <span>Leaflet Map</span>
+                        </button>
+                    </div>
+
+                    {/* Close Button */}
+                    <button
+                        onClick={onClose}
+                        className="absolute top-4 right-4 p-2 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-black/70 transition-colors z-20"
+                        aria-label="Close modal"
+                    >
+                        <X className="w-4 h-4" />
+                    </button>
+
+                    {/* Bottom Info on Hero */}
+                    {viewMode === 'photo' && (
+                        <div className="absolute bottom-4 left-4 right-4 text-white pointer-events-none">
+                            <div className="flex items-center justify-between">
+                                <h3 className="text-2xl font-extrabold tracking-tight">
+                                    {destination.name}
+                                </h3>
+                                <div className="flex items-center gap-1 bg-black/40 backdrop-blur-md px-2 py-1 rounded-xl text-amber-300 font-bold text-xs">
+                                    <Star className="w-3.5 h-3.5 fill-amber-300" />
+                                    <span>{destination.rating}</span>
+                                </div>
+                            </div>
+                            <div className="flex items-center flex-wrap gap-1.5 text-xs text-white/85 mt-1">
+                                <MapPin className="w-3.5 h-3.5 text-[#F06536]" />
+                                <span>{destination.region}</span>
+                                <span>•</span>
+                                <span className="font-bold text-amber-300">🚀 {distInfo.text} from {currentLocation.split(',')[0]}</span>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Body Content */}
+                <div className="p-5 sm:p-6 space-y-4">
+                    {/* Header info when in map mode */}
+                    {viewMode === 'map' && (
+                        <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                            <div>
+                                <h3 className="text-lg font-extrabold text-slate-900 dark:text-white">
+                                    {destination.name}
+                                </h3>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                                    <MapPin className="w-3.5 h-3.5 text-[#F06536]" />
+                                    <span>{destination.region}</span>
+                                    <span>•</span>
+                                    <span className="font-bold text-[#F06536]">{distInfo.text}</span>
+                                </p>
+                            </div>
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-[#F06536]">
+                                {destination.vibe}
+                            </span>
+                        </div>
+                    )}
+
+                    {/* Geodesic Distance Highlight Bar */}
+                    <div className="p-3 rounded-2xl bg-orange-50/80 dark:bg-orange-950/30 border border-orange-200/60 dark:border-orange-900/60 flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-2">
+                            <div className="w-7 h-7 rounded-xl bg-[#F06536] text-white flex items-center justify-center font-bold">
+                                ✈️
+                            </div>
+                            <div>
+                                <p className="font-bold text-slate-900 dark:text-white">
+                                    {distInfo.fullBadge}
+                                </p>
+                                <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                                    Calculated from your current location ({currentLocation})
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Description */}
+                    <div className="space-y-1">
+                        <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                            About Destination
+                        </h4>
+                        <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+                            {destination.description}
+                        </p>
+                    </div>
+
+                    {/* Highlights */}
+                    {destination.highlights && (
+                        <div className="space-y-2">
+                            <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                                Odyssey Highlights
+                            </h4>
+                            <div className="space-y-1.5">
+                                {destination.highlights.map((h, i) => (
+                                    <div key={i} className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-900 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
+                                        <div className="w-4 h-4 rounded-full bg-emerald-100 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
+                                            <Check className="w-2.5 h-2.5" />
+                                        </div>
+                                        <span className="font-semibold">{h}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Action Buttons */}
+                    <div className="pt-2">
+                        <button
+                            onClick={() => {
+                                onPlanTripWithDestination(destination);
+                                onClose();
+                            }}
+                            className="w-full bg-[#F06536] hover:bg-[#E05325] active:scale-[0.99] text-white font-bold text-sm py-3.5 px-4 rounded-2xl shadow-lg shadow-[#F06536]/25 transition-all flex items-center justify-center gap-2"
+                        >
+                            <span>Plan Trip to {destination.name}</span>
+                            <ArrowRight className="w-4 h-4" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
