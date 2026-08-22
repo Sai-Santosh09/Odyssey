@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { supabase } from '../services/supabaseClient';
 import mountainImage from '../assets/odyssey-mountains.jpg';
 import { Eye, EyeOff, ArrowRight, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { ThemeToggle } from '../components/common/ThemeToggle.jsx';
 
 const HERO_HEADLINES = [
     "The world is waiting. 🌍",
@@ -90,6 +91,11 @@ function LandingPage() {
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-[#0B0F17] text-slate-900 dark:text-slate-100 flex flex-col justify-center items-center px-4 py-6 sm:px-6 sm:py-10 md:py-12 font-sans selection:bg-[#F06536]/20 selection:text-[#F06536] transition-colors duration-200 relative">
+            {/* Theme Toggle Button */}
+            <div className="absolute top-4 right-4 z-20">
+                <ThemeToggle />
+            </div>
+
             {/* Main Center Container */}
             <div className="w-full max-w-[420px] sm:max-w-[440px] md:max-w-[460px] flex flex-col space-y-5 sm:space-y-6 my-auto">
                 

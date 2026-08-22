@@ -1,5 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, Check, Plus, ArrowRight, Sparkles, MapPin, GripVertical, CheckCircle2, Edit3, X, Compass } from 'lucide-react';
+import { Calendar, Clock, Check, Plus, ArrowRight, Sparkles, MapPin, GripVertical, CheckCircle2, Edit3, X, Compass, Trash2 } from 'lucide-react';
+
+// Convert HH:MM (24-hour) to 12-hour format with AM/PM
+const format24To12 = (time24) => {
+    if (!time24) return '09:00 AM';
+    if (time24.includes('AM') || time24.includes('PM')) return time24;
+    const parts = time24.split(':');
+    let h = parseInt(parts[0], 10);
+    if (isNaN(h)) return time24;
+    const m = parts[1] ? parts[1].padStart(2, '0') : '00';
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    return `${h < 10 ? '0' + h : h}:${m} ${ampm}`;
+};
+
+// Convert 12-hour time (e.g. "09:00 AM" or "02:30 PM") to 24-hour format ("09:00", "14:30") for <input type="time">
+const format12To24 = (time12) => {
+    if (!time12) return '09:00';
+    if (!time12.includes('AM') && !time12.includes('PM')) {
+        const parts = time12.split(':');
+        if (parts.length >= 2) {
+            const h = parts[0].padStart(2, '0');
+            const m = parts[1].slice(0, 2).padStart(2, '0');
+            return `${h}:${m}`;
+        }
+        return '09:00';
+    }
+    const clean = time12.trim();
+    const isPM = clean.toUpperCase().includes('PM');
+    const timeOnly = clean.replace(/AM|PM/gi, '').trim();
+    const parts = timeOnly.split(':');
+    let h = parseInt(parts[0], 10) || 9;
+    const m = parts[1] ? parts[1].padStart(2, '0') : '00';
+    if (isPM && h < 12) h += 12;
+    if (!isPM && h === 12) h = 0;
+    return `${h < 10 ? '0' + h : h}:${m}`;
+};
 
 export function UpcomingItinerary({
     currentTrip,
@@ -11,8 +47,8 @@ export function UpcomingItinerary({
     const [isAddingActivity, setIsAddingActivity] = useState(false);
     const [editingActivity, setEditingActivity] = useState(null);
     const [newTitle, setNewTitle] = useState('');
-    const [newStartTime, setNewStartTime] = useState('09:00 AM');
-    const [newEndTime, setNewEndTime] = useState('10:30 AM');
+    const [newStartTime, setNewStartTime] = useState('09:00');
+    const [newEndTime, setNewEndTime] = useState('10:30');
 
     useEffect(() => {
         setActivities(currentTrip?.itinerary || []);
@@ -71,14 +107,20 @@ export function UpcomingItinerary({
         onActivityUpdated?.('Itinerary status updated ✓', updated);
     };
 
+    const handleDeleteActivity = (id) => {
+        const updated = activities.filter((item) => item.id !== id);
+        setActivities(updated);
+        onActivityUpdated?.('Stop removed from itinerary 🗑️', updated);
+    };
+
     const handleAddActivity = (e) => {
         e.preventDefault();
         if (!newTitle.trim()) return;
 
         const newAct = {
             id: 'act_' + Date.now(),
-            startTime: newStartTime,
-            endTime: newEndTime,
+            startTime: format24To12(newStartTime),
+            endTime: format24To12(newEndTime),
             title: newTitle,
             subtitle: 'Custom planned activity',
             icon: '✨',
@@ -89,8 +131,18 @@ export function UpcomingItinerary({
         const updated = [...activities, newAct];
         setActivities(updated);
         setNewTitle('');
+        setNewStartTime('09:00');
+        setNewEndTime('10:30');
         setIsAddingActivity(false);
         onActivityUpdated?.('Activity added to your itinerary timeline ✓', updated);
+    };
+
+    const handleOpenEdit = (item) => {
+        setEditingActivity({
+            ...item,
+            rawStartTime: format12To24(item.startTime),
+            rawEndTime: format12To24(item.endTime),
+        });
     };
 
     const handleSaveTimeEdit = (e) => {
@@ -99,7 +151,12 @@ export function UpcomingItinerary({
 
         const updated = activities.map((act) =>
             act.id === editingActivity.id
-                ? { ...act, startTime: editingActivity.startTime, endTime: editingActivity.endTime, title: editingActivity.title }
+                ? {
+                      ...act,
+                      startTime: format24To12(editingActivity.rawStartTime || editingActivity.startTime),
+                      endTime: format24To12(editingActivity.rawEndTime || editingActivity.endTime),
+                      title: editingActivity.title,
+                  }
                 : act
         );
         setActivities(updated);
@@ -133,7 +190,7 @@ export function UpcomingItinerary({
                 </button>
             </div>
 
-            {/* Quick Add Inline Form with Time Selector */}
+            {/* Quick Add Inline Form with Native <input type="time"> Selector */}
             {isAddingActivity && (
                 <form
                     onSubmit={handleAddActivity}
@@ -162,17 +219,17 @@ export function UpcomingItinerary({
                         className="w-full px-3.5 py-2.5 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-[#F06536]"
                     />
 
-                    {/* Start Time and End Time Selector */}
+                    {/* Start Time and End Time Selector with input type="time" */}
                     <div className="grid grid-cols-2 gap-2.5">
                         <div className="space-y-1">
                             <label className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase">
                                 Start Time
                             </label>
                             <input
-                                type="text"
+                                type="time"
+                                required
                                 value={newStartTime}
                                 onChange={(e) => setNewStartTime(e.target.value)}
-                                placeholder="09:00 AM"
                                 className="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-semibold focus:outline-none focus:border-[#F06536]"
                             />
                         </div>
@@ -181,10 +238,10 @@ export function UpcomingItinerary({
                                 End Time
                             </label>
                             <input
-                                type="text"
+                                type="time"
+                                required
                                 value={newEndTime}
                                 onChange={(e) => setNewEndTime(e.target.value)}
-                                placeholder="10:30 AM"
                                 className="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-semibold focus:outline-none focus:border-[#F06536]"
                             />
                         </div>
@@ -199,7 +256,7 @@ export function UpcomingItinerary({
                 </form>
             )}
 
-            {/* Edit Activity Modal */}
+            {/* Edit Activity Modal with input type="time" & Delete Option */}
             {editingActivity && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
                     <form
@@ -230,28 +287,43 @@ export function UpcomingItinerary({
                             />
                         </div>
 
+                        {/* Input type="time" in Edit Modal */}
                         <div className="grid grid-cols-2 gap-2.5">
                             <div className="space-y-1">
                                 <label className="text-xs font-bold text-slate-600 dark:text-slate-300">Start Time</label>
                                 <input
-                                    type="text"
-                                    value={editingActivity.startTime}
-                                    onChange={(e) => setEditingActivity({ ...editingActivity, startTime: e.target.value })}
+                                    type="time"
+                                    required
+                                    value={editingActivity.rawStartTime || ''}
+                                    onChange={(e) => setEditingActivity({ ...editingActivity, rawStartTime: e.target.value })}
                                     className="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-semibold"
                                 />
                             </div>
                             <div className="space-y-1">
                                 <label className="text-xs font-bold text-slate-600 dark:text-slate-300">End Time</label>
                                 <input
-                                    type="text"
-                                    value={editingActivity.endTime}
-                                    onChange={(e) => setEditingActivity({ ...editingActivity, endTime: e.target.value })}
+                                    type="time"
+                                    required
+                                    value={editingActivity.rawEndTime || ''}
+                                    onChange={(e) => setEditingActivity({ ...editingActivity, rawEndTime: e.target.value })}
                                     className="w-full px-3 py-2 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100 font-semibold"
                                 />
                             </div>
                         </div>
 
                         <div className="pt-2 flex gap-2">
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    handleDeleteActivity(editingActivity.id);
+                                    setEditingActivity(null);
+                                }}
+                                className="px-3 py-2 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-rose-600 dark:text-rose-400 text-xs font-bold rounded-xl flex items-center gap-1 transition-colors"
+                                title="Delete stop"
+                            >
+                                <Trash2 className="w-3.5 h-3.5" />
+                                <span>Delete</span>
+                            </button>
                             <button
                                 type="button"
                                 onClick={() => setEditingActivity(null)}
@@ -263,7 +335,7 @@ export function UpcomingItinerary({
                                 type="submit"
                                 className="flex-1 py-2 bg-[#F06536] hover:bg-[#E05325] text-white text-xs font-bold rounded-xl shadow-xs"
                             >
-                                Update Schedule
+                                Update
                             </button>
                         </div>
                     </form>
@@ -297,7 +369,7 @@ export function UpcomingItinerary({
                                         : 'bg-slate-50 dark:bg-[#182238] hover:bg-slate-100/80 dark:hover:bg-slate-800/80 border border-slate-100 dark:border-slate-800'
                                 }`}
                             >
-                                <div className="flex items-center gap-3 min-w-0 flex-1">
+                                <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
                                     {/* Drag Grip Handle Icon */}
                                     <div className="cursor-grab active:cursor-grabbing text-slate-300 dark:text-slate-600 hover:text-slate-500 hidden sm:block">
                                         <GripVertical className="w-3.5 h-3.5" />
@@ -305,7 +377,7 @@ export function UpcomingItinerary({
 
                                     {/* Start and End Time Pill Selector */}
                                     <button
-                                        onClick={() => setEditingActivity(item)}
+                                        onClick={() => handleOpenEdit(item)}
                                         title="Click to edit start and end times"
                                         className="px-2 py-1 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 text-[10px] sm:text-[11px] font-bold text-slate-700 dark:text-slate-200 whitespace-nowrap shadow-xs hover:border-[#F06536] transition-colors flex items-center gap-1 group/time"
                                     >
@@ -330,18 +402,32 @@ export function UpcomingItinerary({
                                     </div>
                                 </div>
 
-                                {/* Checkbox completion trigger */}
-                                <button
-                                    onClick={() => toggleActivity(item.id)}
-                                    className={`ml-2 p-1.5 rounded-xl border transition-all ${
-                                        item.completed
-                                            ? 'bg-emerald-500 border-emerald-500 text-white'
-                                            : 'bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-700 hover:border-[#F06536] text-transparent hover:text-slate-300'
-                                    }`}
-                                    aria-label="Mark completed"
-                                >
-                                    <Check className="w-3.5 h-3.5" />
-                                </button>
+                                {/* Right Actions: Mark Completed Checkbox & Delete Trash Button */}
+                                <div className="flex items-center gap-1.5 ml-2">
+                                    {/* Checkbox completion trigger */}
+                                    <button
+                                        onClick={() => toggleActivity(item.id)}
+                                        className={`p-1.5 rounded-xl border transition-all ${
+                                            item.completed
+                                                ? 'bg-emerald-500 border-emerald-500 text-white'
+                                                : 'bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-700 hover:border-[#F06536] text-transparent hover:text-slate-300'
+                                        }`}
+                                        aria-label="Mark completed"
+                                        title={item.completed ? 'Mark as incomplete' : 'Mark as completed'}
+                                    >
+                                        <Check className="w-3.5 h-3.5" />
+                                    </button>
+
+                                    {/* Delete Button for Actions */}
+                                    <button
+                                        onClick={() => handleDeleteActivity(item.id)}
+                                        className="p-1.5 rounded-xl border border-transparent hover:border-rose-200 dark:hover:border-rose-900/60 bg-transparent hover:bg-rose-50 dark:hover:bg-rose-950/40 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-all active:scale-90"
+                                        aria-label="Delete stop"
+                                        title="Delete stop from itinerary"
+                                    >
+                                        <Trash2 className="w-3.5 h-3.5" />
+                                    </button>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -364,3 +450,4 @@ export function UpcomingItinerary({
         </section>
     );
 }
+export default UpcomingItinerary;

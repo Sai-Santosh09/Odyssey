@@ -4,7 +4,6 @@ import { getGoogleSearchUrls } from '../../services/dynamicDestinationService';
 
 const CATEGORY_FILTERS = [
     { id: 'all', label: 'All Places', icon: '✨' },
-    { id: 'nearby', label: 'Near Me', icon: '📍' },
     { id: 'popular', label: 'Trending', icon: '🔥' },
     { id: 'nature', label: 'Nature & Parks', icon: '🌲' },
     { id: 'adventure', label: 'Adventure', icon: '🏔️' },
@@ -43,6 +42,7 @@ export function DestinationSearch({
                     <Search className={`w-5 h-5 transition-colors ${isFocused ? 'text-[#F06536]' : 'text-slate-400 dark:text-slate-500'}`} />
                 </div>
                 <input
+                    id="destination-search-input"
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}

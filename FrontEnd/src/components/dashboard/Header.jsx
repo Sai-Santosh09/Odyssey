@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Bell, MapPin, Cloud, LogOut, User, ChevronDown, Compass } from 'lucide-react';
-import { supabase } from '../../services/supabaseClient';
+import { Bell, MapPin, Cloud, LogOut, User, ChevronDown, Compass, Smartphone, Sun, Moon } from 'lucide-react';
+import { supabase } from '../../services/supabaseClient.js';
+import { ThemeToggle } from '../common/ThemeToggle.jsx';
+import { useTheme } from '../../context/ThemeContext.jsx';
 
 export function Header({
     currentLocation = 'Hyderabad, India',
@@ -9,9 +11,12 @@ export function Header({
     onOpenProfile,
     unreadNotificationsCount = 2,
     syncStatus = 'Trips synced',
-    userEmail = 'explorer@odyssey.app'
+    userEmail = 'explorer@odyssey.app',
+    isMobileFrame = false,
+    onToggleMobileFrame
 }) {
     const [showProfileMenu, setShowProfileMenu] = useState(false);
+    const { isDarkMode, toggleDarkMode } = useTheme();
 
     const handleSignOut = async () => {
         try {
@@ -23,15 +28,15 @@ export function Header({
 
     return (
         <header className="sticky top-0 z-30 w-full glass-header border-b border-slate-200/80 dark:border-slate-800 transition-colors">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-                <div className="flex items-center justify-between gap-4">
+            <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 py-2.5 sm:py-3">
+                <div className="flex items-center justify-between gap-3">
                     {/* Brand Logo & Location */}
-                    <div className="flex items-center gap-4 sm:gap-6">
-                        <div className="flex items-center gap-2.5">
-                            <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-[#F06536] to-amber-500 flex items-center justify-center shadow-md shadow-[#F06536]/30">
-                                <Compass className="w-5 h-5 text-white stroke-[2.2]" />
+                    <div className="flex items-center gap-3 sm:gap-6">
+                        <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-2xl bg-gradient-to-tr from-[#F06536] to-amber-500 flex items-center justify-center shadow-md shadow-[#F06536]/30">
+                                <Compass className="w-4 h-4 sm:w-5 sm:h-5 text-white stroke-[2.2]" />
                             </div>
-                            <span className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                            <span className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                                 Odyssey
                             </span>
                         </div>
@@ -39,7 +44,7 @@ export function Header({
                         {/* Location Quick Badge on Desktop/Tablet */}
                         <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 shadow-2xs">
                             <MapPin className="w-3.5 h-3.5 text-[#F06536]" />
-                            <span>{currentLocation}</span>
+                            <span className="max-w-[120px] truncate">{currentLocation}</span>
                             <span className="text-slate-300 dark:text-slate-600">•</span>
                             <button
                                 onClick={onChangeLocation}
@@ -50,8 +55,27 @@ export function Header({
                         </div>
                     </div>
 
-                    {/* Right Actions: Sync, Notifications, Profile */}
-                    <div className="flex items-center gap-2 sm:gap-3">
+                    {/* Right Actions: App Layout Toggle, Light/Dark Theme, Sync, Notifications, Profile */}
+                    <div className="flex items-center gap-2 sm:gap-2.5">
+                        {/* Mobile App Mode Toggle */}
+                        {onToggleMobileFrame && (
+                            <button
+                                onClick={onToggleMobileFrame}
+                                className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full border text-[11px] sm:text-xs font-bold transition-all active:scale-95 shadow-2xs ${
+                                    isMobileFrame
+                                        ? 'bg-[#F06536] text-white border-[#F06536] shadow-sm shadow-[#F06536]/25'
+                                        : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-[#F06536]'
+                                }`}
+                                title={isMobileFrame ? 'Exit Mobile App Simulator' : 'Preview in Mobile App Frame'}
+                            >
+                                <Smartphone className="w-3.5 h-3.5 text-inherit" />
+                                <span className="hidden xs:inline">{isMobileFrame ? 'App View' : 'App Mode'}</span>
+                            </button>
+                        )}
+
+                        {/* Light / Dark Mode Theme Toggle */}
+                        <ThemeToggle />
+
                         {/* Cloud Sync Status */}
                         <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 dark:bg-emerald-950/40 rounded-full border border-emerald-200 dark:border-emerald-800 text-[11px] font-bold text-emerald-700 dark:text-emerald-400">
                             <span className="relative flex h-2 w-2">
@@ -113,6 +137,21 @@ export function Header({
                                             >
                                                 <User className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                                                 Traveler Profile & History
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    toggleDarkMode();
+                                                    setShowProfileMenu(false);
+                                                }}
+                                                className="w-full px-4 py-2.5 text-left text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-[#182238] flex items-center justify-between transition-colors"
+                                            >
+                                                <span className="flex items-center gap-2.5">
+                                                    {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600" />}
+                                                    <span>{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+                                                </span>
+                                                <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold uppercase">
+                                                    {isDarkMode ? 'Dark' : 'Light'}
+                                                </span>
                                             </button>
                                         </div>
                                         <div className="pt-1 border-t border-slate-100 dark:border-slate-800">

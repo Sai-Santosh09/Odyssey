@@ -35,7 +35,7 @@ export function DestinationModal({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-sm animate-in fade-in duration-200">
             <div className="bg-white dark:bg-[#131B2E] rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 dark:border-slate-800 p-0 animate-in zoom-in-95 duration-200 overflow-hidden transition-colors">
                 {/* Hero Media / Map Header */}
-                <div className="relative h-56 sm:h-64 bg-slate-900">
+                <div className="relative h-56 sm:h-64 bg-slate-900 overflow-hidden">
                     {viewMode === 'map' ? (
                         <div className="w-full h-full">
                             <OdysseyLeafletMap
@@ -54,15 +54,15 @@ export function DestinationModal({
                                 alt={destination.name}
                                 className="w-full h-full object-cover object-center"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/20" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                         </>
                     )}
 
-                    {/* View Switcher (Photo vs Map) */}
-                    <div className="absolute top-4 left-4 flex items-center gap-1 bg-black/60 backdrop-blur-md p-1 rounded-xl z-20">
+                    {/* View Switcher (Photo vs Map) - Fixed at Bottom Left of Media/Map */}
+                    <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-black/75 dark:bg-[#111827]/90 backdrop-blur-md p-1 rounded-xl shadow-lg border border-white/20 z-30">
                         <button
                             onClick={() => setViewMode('photo')}
-                            className={`px-2 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 ${
+                            className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1.5 ${
                                 viewMode === 'photo'
                                     ? 'bg-[#F06536] text-white shadow-xs'
                                     : 'text-white/80 hover:text-white'
@@ -73,7 +73,7 @@ export function DestinationModal({
                         </button>
                         <button
                             onClick={() => setViewMode('map')}
-                            className={`px-2 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 ${
+                            className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1.5 ${
                                 viewMode === 'map'
                                     ? 'bg-[#F06536] text-white shadow-xs'
                                     : 'text-white/80 hover:text-white'
@@ -84,58 +84,45 @@ export function DestinationModal({
                         </button>
                     </div>
 
-                    {/* Close Button */}
+                    {/* Close Button at Top Right */}
                     <button
                         onClick={onClose}
-                        className="absolute top-4 right-4 p-2 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-black/70 transition-colors z-20"
+                        className="absolute top-3.5 right-3.5 p-2 rounded-full bg-black/50 backdrop-blur-md text-white hover:bg-black/80 transition-colors z-30 shadow-md"
                         aria-label="Close modal"
                     >
                         <X className="w-4 h-4" />
                     </button>
-
-                    {/* Bottom Info on Hero */}
-                    {viewMode === 'photo' && (
-                        <div className="absolute bottom-4 left-4 right-4 text-white pointer-events-none">
-                            <div className="flex items-center justify-between">
-                                <h3 className="text-2xl font-extrabold tracking-tight">
-                                    {destination.name}
-                                </h3>
-                                <div className="flex items-center gap-1 bg-black/40 backdrop-blur-md px-2 py-1 rounded-xl text-amber-300 font-bold text-xs">
-                                    <Star className="w-3.5 h-3.5 fill-amber-300" />
-                                    <span>{destination.rating}</span>
-                                </div>
-                            </div>
-                            <div className="flex items-center flex-wrap gap-1.5 text-xs text-white/85 mt-1">
-                                <MapPin className="w-3.5 h-3.5 text-[#F06536]" />
-                                <span>{destination.region}</span>
-                                <span>•</span>
-                                <span className="font-bold text-amber-300">🚀 {distInfo.text} from {currentLocation.split(',')[0]}</span>
-                            </div>
-                        </div>
-                    )}
                 </div>
 
                 {/* Body Content */}
                 <div className="p-5 sm:p-6 space-y-4">
-                    {/* Header info when in map mode */}
-                    {viewMode === 'map' && (
-                        <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-                            <div>
-                                <h3 className="text-lg font-extrabold text-slate-900 dark:text-white">
-                                    {destination.name}
-                                </h3>
-                                <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                                    <MapPin className="w-3.5 h-3.5 text-[#F06536]" />
-                                    <span>{destination.region}</span>
-                                    <span>•</span>
-                                    <span className="font-bold text-[#F06536]">{distInfo.text}</span>
-                                </p>
-                            </div>
-                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 text-[#F06536]">
-                                {destination.vibe}
-                            </span>
+                    {/* Header info in body */}
+                    <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                        <div>
+                            <h3 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                                {destination.name}
+                            </h3>
+                            <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5 mt-0.5">
+                                <MapPin className="w-3.5 h-3.5 text-[#F06536]" />
+                                <span>{destination.region}</span>
+                                <span>•</span>
+                                <span className="font-bold text-[#F06536]">{distInfo.text} away</span>
+                            </p>
                         </div>
-                    )}
+                        <div className="flex flex-col items-end gap-1">
+                            {destination.vibe && (
+                                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 dark:bg-orange-950/50 text-[#F06536]">
+                                    {destination.vibe}
+                                </span>
+                            )}
+                            {destination.rating && (
+                                <div className="flex items-center gap-1 text-xs font-bold text-amber-500">
+                                    <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                                    <span>{destination.rating}</span>
+                                </div>
+                            )}
+                        </div>
+                    </div>
 
                     {/* Geodesic Distance Highlight Bar */}
                     <div className="p-3 rounded-2xl bg-orange-50/80 dark:bg-orange-950/30 border border-orange-200/60 dark:border-orange-900/60 flex items-center justify-between text-xs">
