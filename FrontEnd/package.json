@@ -11,13 +11,10 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.45.1",
     "axios": "^1.19.0",
-<<<<<<< HEAD
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "leaflet": "^1.9.4",
     "lucide-react": "^1.33.0",
-=======
->>>>>>> 63b22b64e98fd29913de55b2ed441b8f6b968831
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-leaflet": "^4.2.1",
