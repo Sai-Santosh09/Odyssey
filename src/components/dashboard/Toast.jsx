@@ -11,11 +11,11 @@ export function Toast({ toast, onClose }) {
                     {toast.type === 'success' && <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />}
                     {toast.type === 'error' && <AlertCircle className="w-4 h-4 text-rose-400 flex-shrink-0" />}
                     {(!toast.type || toast.type === 'info') && <Info className="w-4 h-4 text-[#F06536] flex-shrink-0" />}
-                    <p className="text-xs sm:text-sm font-medium text-stone-100">{toast.message}</p>
+                    <p className="text-xs sm:text-sm font-medium text-slate-100">{toast.message}</p>
                 </div>
                 <button
                     onClick={onClose}
-                    className="text-stone-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/10"
+                    className="text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/10"
                 >
                     <X className="w-3.5 h-3.5" />
                 </button>

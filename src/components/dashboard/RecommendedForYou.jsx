@@ -1,9 +1,6 @@
 import React from 'react';
 import { Sparkles, Plus, Star, ArrowRight, Heart } from 'lucide-react';
-import auroraImg from '../../assets/aurora_adventure.jpg';
-import goaImg from '../../assets/goa_streets.jpg';
-import parisImg from '../../assets/paris_eiffel.jpg';
-import cityImg from '../../assets/city_nightscape.jpg';
+import { getDestinationPhoto } from '../../services/imageService';
 
 const RECOMMENDATIONS = [
     {
@@ -14,7 +11,7 @@ const RECOMMENDATIONS = [
         rating: 4.9,
         duration: 'Full Day',
         matchPercent: '98% Match',
-        image: auroraImg,
+        image: getDestinationPhoto('manali'),
         description: 'Guided high-altitude ascent through cedar forests with stargazing campfire.',
     },
     {
@@ -25,7 +22,7 @@ const RECOMMENDATIONS = [
         rating: 4.8,
         duration: '3.5 Hours',
         matchPercent: '95% Match',
-        image: goaImg,
+        image: getDestinationPhoto('jaipur'),
         description: 'Taste 8+ artisanal recipes, traditional clay-oven delicacies and local desserts.',
     },
     {
@@ -36,7 +33,7 @@ const RECOMMENDATIONS = [
         rating: 4.9,
         duration: '2 Hours',
         matchPercent: '94% Match',
-        image: cityImg,
+        image: getDestinationPhoto('goa'),
         description: 'Catamaran cruise with acoustic melodies, sparkling drinks and sea breeze.',
     },
     {
@@ -47,7 +44,7 @@ const RECOMMENDATIONS = [
         rating: 4.7,
         duration: '3 Hours',
         matchPercent: '92% Match',
-        image: parisImg,
+        image: getDestinationPhoto('paris'),
         description: 'Expert historian-led walk across ancient palaces, arches and vintage courtyards.',
     },
 ];
@@ -59,15 +56,15 @@ export function RecommendedForYou({ onAddToTrip, onSelectRecommendation }) {
             <div className="flex items-center justify-between">
                 <div>
                     <div className="flex items-center gap-1.5">
-                        <h2 className="text-lg sm:text-xl font-bold text-[#181A20] tracking-tight">
+                        <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                             Picked for you
                         </h2>
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-orange-100 text-[#F06536] flex items-center gap-1">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-orange-100 dark:bg-orange-950/40 text-[#F06536] flex items-center gap-1">
                             <Sparkles className="w-2.5 h-2.5" />
                             AI Matched
                         </span>
                     </div>
-                    <p className="text-xs text-stone-500">
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
                         Based on your travel preferences & past journeys.
                     </p>
                 </div>
@@ -79,20 +76,21 @@ export function RecommendedForYou({ onAddToTrip, onSelectRecommendation }) {
                     <div
                         key={rec.id}
                         onClick={() => onSelectRecommendation?.(rec)}
-                        className="group bg-white rounded-3xl p-3.5 border border-stone-200/80 shadow-sm hover:shadow-lg hover:border-orange-200 transition-all duration-200 cursor-pointer flex flex-col justify-between"
+                        className="group bg-white dark:bg-[#131B2E] rounded-3xl p-3.5 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg hover:border-orange-200 dark:hover:border-orange-900 transition-all duration-200 cursor-pointer flex flex-col justify-between"
                     >
                         {/* Image Banner */}
-                        <div className="relative h-32 rounded-2xl overflow-hidden bg-stone-900 mb-3">
+                        <div className="relative h-32 rounded-2xl overflow-hidden bg-slate-900 mb-3">
                             <img
                                 src={rec.image}
                                 alt={rec.title}
                                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                loading="lazy"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent pointer-events-none" />
 
                             {/* Match Badge */}
                             <div className="absolute top-2.5 left-2.5">
-                                <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-[#181A20]/90 backdrop-blur-md text-white shadow-xs">
+                                <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-slate-900/90 backdrop-blur-md text-white shadow-xs">
                                     {rec.matchPercent}
                                 </span>
                             </div>
@@ -109,17 +107,17 @@ export function RecommendedForYou({ onAddToTrip, onSelectRecommendation }) {
 
                         {/* Card Content */}
                         <div className="space-y-1 flex-1">
-                            <h4 className="text-sm font-bold text-stone-900 group-hover:text-[#F06536] transition-colors leading-snug">
+                            <h4 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-[#F06536] transition-colors leading-snug">
                                 {rec.title}
                             </h4>
-                            <p className="text-[11px] text-stone-500 line-clamp-2">
+                            <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2">
                                 {rec.description}
                             </p>
                         </div>
 
                         {/* Actions */}
-                        <div className="mt-3 pt-2.5 border-t border-stone-100 flex items-center justify-between">
-                            <span className="text-[11px] font-medium text-stone-400">
+                        <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                            <span className="text-[11px] font-medium text-slate-400 dark:text-slate-500">
                                 ⏱️ {rec.duration}
                             </span>
                             <button
@@ -127,7 +125,7 @@ export function RecommendedForYou({ onAddToTrip, onSelectRecommendation }) {
                                     e.stopPropagation();
                                     onAddToTrip?.(rec);
                                 }}
-                                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-orange-50 hover:bg-[#F06536] text-[#F06536] hover:text-white text-xs font-bold transition-all shadow-xs active:scale-95"
+                                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-orange-50 dark:bg-orange-950/40 hover:bg-[#F06536] text-[#F06536] hover:text-white text-xs font-bold transition-all shadow-xs active:scale-95"
                             >
                                 <Plus className="w-3 h-3" />
                                 <span>Add to Trip</span>

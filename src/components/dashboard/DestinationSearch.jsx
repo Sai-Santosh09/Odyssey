@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Search, X, SlidersHorizontal } from 'lucide-react';
+import { Search, X, Sparkles, MapPin } from 'lucide-react';
 
 const CATEGORY_FILTERS = [
-    { id: 'all', label: 'All', icon: '✨' },
-    { id: 'nearby', label: 'Nearby', icon: '📍' },
-    { id: 'popular', label: 'Popular', icon: '🔥' },
-    { id: 'nature', label: 'Nature', icon: '🌲' },
+    { id: 'all', label: 'All Places', icon: '✨' },
+    { id: 'nearby', label: 'Near Me', icon: '📍' },
+    { id: 'popular', label: 'Trending', icon: '🔥' },
+    { id: 'nature', label: 'Nature & Parks', icon: '🌲' },
     { id: 'adventure', label: 'Adventure', icon: '🏔️' },
-    { id: 'food', label: 'Food', icon: '🍜' },
-    { id: 'culture', label: 'Culture', icon: '🏛️' },
+    { id: 'food', label: 'Food & Dining', icon: '🍜' },
+    { id: 'culture', label: 'Heritage & Art', icon: '🏛️' },
     { id: 'relaxation', label: 'Relaxation', icon: '🏖️' },
 ];
 
@@ -21,17 +21,17 @@ export function DestinationSearch({
     const [isFocused, setIsFocused] = useState(false);
 
     return (
-        <section className="space-y-3 pt-2">
-            {/* Interactive Search Bar */}
+        <section className="space-y-4">
+            {/* Search Input Bar */}
             <div
-                className={`relative flex items-center bg-white rounded-2xl border transition-all duration-200 shadow-sm ${
+                className={`relative flex items-center bg-slate-100 dark:bg-[#182238] rounded-2xl border transition-all duration-200 shadow-sm ${
                     isFocused
                         ? 'border-[#F06536] ring-4 ring-[#F06536]/15 shadow-md shadow-[#F06536]/5'
-                        : 'border-stone-200/90 hover:border-stone-300'
+                        : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
                 }`}
             >
-                <div className="pl-4 pr-2 text-stone-400 flex items-center pointer-events-none">
-                    <Search className={`w-5 h-5 transition-colors ${isFocused ? 'text-[#F06536]' : 'text-stone-400'}`} />
+                <div className="pl-4 pr-2 text-slate-400 dark:text-slate-500 flex items-center pointer-events-none">
+                    <Search className={`w-5 h-5 transition-colors ${isFocused ? 'text-[#F06536]' : 'text-slate-400 dark:text-slate-500'}`} />
                 </div>
                 <input
                     type="text"
@@ -39,13 +39,13 @@ export function DestinationSearch({
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
-                    placeholder="Search destinations, places or activities..."
-                    className="w-full py-3.5 pr-10 text-xs sm:text-sm text-stone-900 placeholder:text-stone-400 bg-transparent focus:outline-none font-medium"
+                    placeholder="Search any destination, country, activity, or hidden spot..."
+                    className="w-full py-3.5 pr-10 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 bg-transparent focus:outline-none font-medium"
                 />
                 {searchQuery && (
                     <button
                         onClick={() => setSearchQuery('')}
-                        className="absolute right-3.5 p-1 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 transition-colors"
+                        className="absolute right-3.5 p-1.5 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 transition-colors"
                         aria-label="Clear search"
                     >
                         <X className="w-3.5 h-3.5" />
@@ -53,27 +53,25 @@ export function DestinationSearch({
                 )}
             </div>
 
-            {/* Horizontally Scrollable Quick Filters */}
-            <div className="relative">
-                <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none no-scrollbar touch-pan-x select-none -mx-4 px-4 sm:mx-0 sm:px-0">
-                    {CATEGORY_FILTERS.map((cat) => {
-                        const isActive = selectedCategory === cat.id;
-                        return (
-                            <button
-                                key={cat.id}
-                                onClick={() => setSelectedCategory(cat.id)}
-                                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-150 active:scale-95 touch-manipulation ${
-                                    isActive
-                                        ? 'bg-[#181A20] text-white shadow-md shadow-black/10'
-                                        : 'bg-white hover:bg-stone-100 text-stone-700 border border-stone-200/80 shadow-xs'
-                                }`}
-                            >
-                                <span>{cat.icon}</span>
-                                <span>{cat.label}</span>
-                            </button>
-                        );
-                    })}
-                </div>
+            {/* Scrollable Category Filter Pills (Hidden Scrollbar) */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar select-none">
+                {CATEGORY_FILTERS.map((cat) => {
+                    const isActive = selectedCategory === cat.id;
+                    return (
+                        <button
+                            key={cat.id}
+                            onClick={() => setSelectedCategory(cat.id)}
+                            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-150 active:scale-95 touch-manipulation ${
+                                isActive
+                                    ? 'bg-[#F06536] text-white shadow-md shadow-[#F06536]/25'
+                                    : 'bg-white dark:bg-[#131B2E] hover:bg-slate-100 dark:hover:bg-[#182238] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 shadow-2xs'
+                            }`}
+                        >
+                            <span>{cat.icon}</span>
+                            <span>{cat.label}</span>
+                        </button>
+                    );
+                })}
             </div>
         </section>
     );
