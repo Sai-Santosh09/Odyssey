@@ -3,7 +3,7 @@
  * Provides real-time dynamic search across Wikipedia Geo APIs, OpenStreetMap Geocoding,
  * and AI Dynamic Destination Synthesizer with 100% search coverage and Google Search integration.
  */
-import { getCoordinatesForLocation, calculateExactDistanceKm } from './locationService.js';
+import { getCoordinatesForLocation } from './locationService.js';
 import { getDestinationPhoto } from './imageService.js';
 
 /**

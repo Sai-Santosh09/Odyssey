@@ -1,5 +1,4 @@
-import React from 'react';
-import { X, Bell, Check, CheckCheck, Trash2 } from 'lucide-react';
+import { X, Bell, CheckCheck } from 'lucide-react';
 
 export function NotificationsModal({
     isOpen,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, MapPin, Calendar, Users, Sparkles, ArrowRight, Loader2, Compass, CheckCircle2, Check, Layers, Navigation, Plane } from 'lucide-react';
+import { X, MapPin, ArrowRight, Loader2, Compass, CheckCircle2, Check, Layers } from 'lucide-react';
 import { searchPlacesAutocomplete, verifyDestinationLocation } from '../../services/mapsService.js';
-import { OdysseyLeafletMap } from './OdysseyLeafletMap.jsx';
+import { OdysseyLeafletMap } from '../map/OdysseyLeafletMap.jsx';
 import { getDestinationDistance, getCoordinatesForLocation } from '../../services/locationService.js';
 
 const VIBE_OPTIONS = [

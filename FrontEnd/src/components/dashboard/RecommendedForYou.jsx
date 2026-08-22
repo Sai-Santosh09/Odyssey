@@ -1,5 +1,4 @@
-import React from 'react';
-import { Sparkles, Plus, Star, ArrowRight, Heart } from 'lucide-react';
+import { Sparkles, Plus, Star } from 'lucide-react';
 import { getDestinationPhoto } from '../../services/imageService';
 
 const RECOMMENDATIONS = [

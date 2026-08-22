@@ -3,9 +3,9 @@
  * Robust, high-speed multi-stage location discovery
  * Queries Google Places JavaScript SDK, Wikipedia GeoSearch, and Physical Landmark Registry
  */
-import { calculateExactDistanceKm, CITY_COORDINATES } from './locationService';
-import { GOOGLE_MAPS_API_KEY, getGoogleStreetViewUrl, getGoogleStaticMapUrl, loadGoogleMapsScript } from './mapsService';
-import { getPlacePhoto, SPECIFIC_PLACE_IMAGES } from './imageService';
+import { calculateExactDistanceKm } from './locationService';
+import { getGoogleStreetViewUrl, loadGoogleMapsScript } from './mapsService';
+import { getPlacePhoto } from './imageService';
 
 // Category mapping helper based on Google Places types
 function categorizeGooglePlace(types = [], name = '') {

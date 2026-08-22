@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { supabase } from '../services/supabaseClient';
 import mountainImage from '../assets/odyssey-mountains.jpg';
-import { Eye, EyeOff, ArrowRight, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Eye, EyeOff, ArrowRight, Loader2, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
 import { ThemeToggle } from '../components/common/ThemeToggle.jsx';
+import { useAuth } from '../context/Authcontext';
 
 const HERO_HEADLINES = [
     "The world is waiting. 🌍",
@@ -35,6 +36,7 @@ function LandingPage() {
         return HERO_HEADLINES[randomIndex];
     });
 
+    const { loginAsGuest } = useAuth();
     const [authMode, setAuthMode] = useState('signin'); // 'signin' | 'signup' | 'forgot'
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -267,6 +269,18 @@ function LandingPage() {
                             )}
                         </button>
                     </form>
+
+                    {/* Instant Guest / Demo Mode Button */}
+                    <div className="pt-1">
+                        <button
+                            type="button"
+                            onClick={loginAsGuest}
+                            className="w-full py-2.5 px-3 rounded-xl bg-orange-50 dark:bg-orange-950/40 hover:bg-orange-100 dark:hover:bg-orange-900/60 border border-orange-200 dark:border-orange-900/60 text-[#F06536] dark:text-orange-300 font-bold text-xs transition-all flex items-center justify-center gap-1.5 shadow-xs active:scale-[0.99] touch-manipulation"
+                        >
+                            <Sparkles className="w-3.5 h-3.5" />
+                            <span>Instant Demo Access (Explore as Guest)</span>
+                        </button>
+                    </div>
 
                     {/* Mode Toggle Footer */}
                     <div className="text-center pt-2 sm:pt-3">

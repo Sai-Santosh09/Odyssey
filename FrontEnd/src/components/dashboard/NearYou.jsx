@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { MapPin, Star, Navigation, ArrowRight, Coffee, Utensils, Landmark, Compass, Eye, Loader2, AlertCircle, Check, Map as MapIcon, List, ExternalLink, Sparkles, RefreshCw, Radio, Zap } from 'lucide-react';
-import { getCurrentGPSLocation, calculateExactDistanceKm, getCoordinatesForLocation } from '../../services/locationService';
+import { MapPin, Star, Navigation, ArrowRight, Compass, Loader2, AlertCircle, Check, Map as MapIcon, List, ExternalLink, Sparkles, RefreshCw, Radio, Zap } from 'lucide-react';
+import { getCurrentGPSLocation, getCoordinatesForLocation } from '../../services/locationService';
 import { fetchLiveGooglePlaces } from '../../services/googlePlacesLiveService';
-import { OdysseyLeafletMap } from './OdysseyLeafletMap';
+import { OdysseyLeafletMap } from '../map/OdysseyLeafletMap';
 
 export function NearYou({
     currentLocation = 'Hyderabad, India',

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Sparkles, Plus, Star, MapPin, ArrowRight, Heart } from 'lucide-react';
+import { Sparkles, Plus, Star } from 'lucide-react';
 import { getDestinationPhoto } from '../../services/imageService.js';
 import { getDestinationDistance, getCoordinatesForLocation } from '../../services/locationService.js';
 

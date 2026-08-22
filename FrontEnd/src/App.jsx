@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAuth } from './context/Authcontext';
 import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/Dashboard';

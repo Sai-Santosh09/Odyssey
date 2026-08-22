@@ -11,16 +11,16 @@ import { RecommendedForYou } from '../components/dashboard/RecommendedForYou';
 import { PlacesInMind } from '../components/dashboard/PlacesInMind';
 import { TravelInsights } from '../components/dashboard/TravelInsights';
 import { BottomNav } from '../components/dashboard/BottomNav';
-import { Toast } from '../components/dashboard/Toast';
+import { Toast } from '../components/common/Toast';
 import { DestinationModal } from '../components/dashboard/DestinationModal';
 import { ChangeLocationModal } from '../components/dashboard/ChangeLocationModal';
 import { NotificationsModal } from '../components/dashboard/NotificationsModal';
 import { TravelerProfileModal } from '../components/dashboard/TravelerProfileModal';
 import { TripDetailsModal } from '../components/dashboard/TripDetailsModal';
 import { PlaceMapModal } from '../components/dashboard/PlaceMapModal';
-import { MobileDeviceFrame } from '../components/dashboard/MobileDeviceFrame.jsx';
+import { MobileDeviceFrame } from '../components/common/MobileDeviceFrame';
 import { getCoordinatesForLocation } from '../services/locationService.js';
-import { Sparkles, MapPin, Compass, Plus, Plane, Calendar } from 'lucide-react';
+import { Sparkles, MapPin, Plus } from 'lucide-react';
 
 const DEFAULT_PREFERENCES = {
     budget: 'Moderate',
@@ -217,6 +217,14 @@ export default function Dashboard() {
             prev.map((t) => (t.id === tripId ? { ...t, status: 'upcoming' } : t))
         );
         showToast('Trip restored to upcoming journeys! 🧳', 'success');
+    };
+
+    const handleUpdateTrip = (updatedTrip) => {
+        setTrips((prev) =>
+            prev.map((t) => (t.id === updatedTrip.id ? updatedTrip : t))
+        );
+        setSelectedTripDetails((prev) => (prev?.id === updatedTrip.id ? updatedTrip : prev));
+        showToast(`Trip details updated (${updatedTrip.travelers} traveler${updatedTrip.travelers > 1 ? 's' : ''}) ✨`, 'success');
     };
 
     const handleSelectDestination = (dest) => {
@@ -494,6 +502,7 @@ export default function Dashboard() {
                             onSelectTrip={handleSelectTrip}
                             onCancelTrip={handleCancelTrip}
                             onRestoreTrip={handleRestoreTrip}
+                            onUpdateTrip={handleUpdateTrip}
                         />
                     </div>
                 )}
@@ -609,6 +618,7 @@ export default function Dashboard() {
                 trip={selectedTripDetails}
                 isOpen={!!selectedTripDetails}
                 onClose={() => setSelectedTripDetails(null)}
+                onUpdateTrip={handleUpdateTrip}
             />
 
             <PlaceMapModal

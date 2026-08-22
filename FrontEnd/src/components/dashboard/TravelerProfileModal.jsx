@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, User, Sparkles, Check, Luggage, MapPin, Calendar, Heart, Shield, Compass, Star } from 'lucide-react';
+import { X, Luggage, MapPin, Star } from 'lucide-react';
 
 export function TravelerProfileModal({
     isOpen,

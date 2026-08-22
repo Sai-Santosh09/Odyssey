@@ -20,29 +20,33 @@ def get_genai_client():
     return genai.Client(api_key=api_key)
 
 SYSTEM_PROMPT = """
-You are an expert travel concierge API. Your sole function is to construct realistic, highly tailored day-wise travel itineraries based on user constraints.
+You are an expert travel concierge and multi-modal transit intelligence API with live Google Search Grounding.
+Your function is to construct realistic, highly tailored day-wise travel itineraries, hotel price comparisons, and multi-mode transit booking options (Flight, Train, Bus).
 
-CRITICAL CONSTRAINTS:
-1. Realistic Logistics: Group activities by geographic proximity. Do not schedule morning and afternoon activities on opposite sides of a city.
-2. Budget Strictness: The sum of all activity 'estimated_cost' values across all days MUST NOT exceed the user's total budget.
-3. Schedule Balance:
-   - Morning: 1 main activity or transit + breakfast spot.
-   - Afternoon: 1-2 sightseeing/cultural activities + lunch spot.
-   - Evening: 1 relaxation/nightlife activity + dinner spot.
-4. Categorization: Every activity must belong to one of: ['Food', 'Sightseeing', 'Culture', 'Relaxation', 'Transit', 'Nightlife'].
+CRITICAL INSTRUCTIONS:
+1. Real-Time Hotel Search: Ground accommodation recommendations in live web data for the target destination across Booking.com, Expedia, and Agoda.
+2. Multi-Mode Transit Comparison: Provide realistic transit pricing and durations across:
+   - Flight (e.g. Major airlines, non-stop flight duration, fare per person)
+   - Train (e.g. High-speed / Express train, scenic route, comfort level)
+   - Bus / Coach (e.g. AC Volvo sleeper / express coach, budget fare)
+3. Realistic Logistics: Group activities by geographic proximity.
+4. Budget Strictness: The sum of all activity 'estimated_cost' values across all days MUST NOT exceed the user's total budget.
 """
 
 def generate_itinerary(request: ItineraryRequest) -> ItineraryResponse:
     client = get_genai_client()
     
     prompt = f"""
-Generate a travel itinerary for:
+Search the live web and generate a grounded travel itinerary, hotel price comparison, and multi-modal transit comparison (Flight, Train, Bus) for:
 - Destination: {request.destination}
 - Duration: {request.days} days
 - Budget: {request.budget} USD
 - Interests: {', '.join(request.interests) if request.interests else 'General tourism'}
 
-Remember: The sum of all estimated_cost values for all activities in the entire itinerary must be less than or equal to {request.budget} USD.
+Requirements:
+1. Ground real hotel names and live prices across Booking.com, Expedia, and Agoda in hotel_comparisons.
+2. Provide transport_comparisons containing Flight, Train, and Bus options with operator names, durations, and per-person prices.
+3. Ensure total estimated activity costs remain within {request.budget} USD.
 """
 
     try:
@@ -53,7 +57,8 @@ Remember: The sum of all estimated_cost values for all activities in the entire 
                 response_mime_type="application/json",
                 response_schema=ItineraryResponse,
                 system_instruction=SYSTEM_PROMPT,
-                temperature=0.7,
+                tools=[types.Tool(google_search=types.GoogleSearch())],
+                temperature=0.3,
             )
         )
         

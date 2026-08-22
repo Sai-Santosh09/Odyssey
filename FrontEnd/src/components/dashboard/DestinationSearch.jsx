@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, X, Sparkles, MapPin, ExternalLink } from 'lucide-react';
+import { Search, X, ExternalLink } from 'lucide-react';
 import { getGoogleSearchUrls } from '../../services/dynamicDestinationService';
 
 const CATEGORY_FILTERS = [

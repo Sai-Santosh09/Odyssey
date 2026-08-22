@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { X, Star, MapPin, Calendar, Compass, ArrowRight, Sparkles, Check, Map as MapIcon, Image as ImageIcon, Plane, Navigation } from 'lucide-react';
-import { OdysseyLeafletMap } from './OdysseyLeafletMap';
+import { X, Star, MapPin, ArrowRight, Check, Map as MapIcon, Image as ImageIcon } from 'lucide-react';
+import { OdysseyLeafletMap } from '../map/OdysseyLeafletMap';
 import { getDestinationDistance, getCoordinatesForLocation } from '../../services/locationService.js';
 
 export function DestinationModal({

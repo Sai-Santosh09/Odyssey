@@ -1,4 +1,3 @@
-import React from 'react';
 import { Compass, Luggage, MapPin, Sparkles } from 'lucide-react';
 
 export function BottomNav({ activeTab = 'explore', onChangeTab, tripsCount = 0, isMobileFrame = false }) {

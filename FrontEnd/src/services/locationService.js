@@ -4,7 +4,7 @@
  * and high-accuracy landmark registry.
  */
 import { getPlacePhoto } from './imageService.js';
-import { computeGoogleDistanceKm, googleReverseGeocode, googleGeocodeAddress } from './mapsService.js';
+import { computeGoogleDistanceKm, googleReverseGeocode } from './mapsService.js';
 
 // Coordinates registry for major Indian & Global cities with extensive alias coverage
 export const CITY_COORDINATES = {

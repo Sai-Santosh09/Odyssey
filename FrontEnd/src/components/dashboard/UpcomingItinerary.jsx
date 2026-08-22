@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, Check, Plus, ArrowRight, Sparkles, MapPin, GripVertical, CheckCircle2, Edit3, X, Compass, Trash2 } from 'lucide-react';
+import { Clock, Check, Plus, ArrowRight, GripVertical, Edit3, X, Trash2 } from 'lucide-react';
 
 // Convert HH:MM (24-hour) to 12-hour format with AM/PM
 const format24To12 = (time24) => {

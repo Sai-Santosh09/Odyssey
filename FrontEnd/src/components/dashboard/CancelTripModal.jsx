@@ -1,5 +1,4 @@
-import React from 'react';
-import { X, AlertTriangle, Luggage } from 'lucide-react';
+import { X, AlertTriangle } from 'lucide-react';
 
 export function CancelTripModal({
     isOpen,

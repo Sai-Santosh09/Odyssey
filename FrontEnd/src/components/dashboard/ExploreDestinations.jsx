@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Star, MapPin, ArrowRight, Sparkles, Heart, Navigation, Plane, Globe, ExternalLink, Search, Compass, Loader2 } from 'lucide-react';
+import { Star, MapPin, ArrowRight, Sparkles, Heart, Plane, Globe, ExternalLink, Search, Loader2 } from 'lucide-react';
 import { getDestinationPhoto } from '../../services/imageService';
 import { getDestinationDistance } from '../../services/locationService';
 import { searchDynamicDestinations, getGoogleSearchUrls } from '../../services/dynamicDestinationService';

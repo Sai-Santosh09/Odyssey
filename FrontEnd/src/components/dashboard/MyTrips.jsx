@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, MapPin, Calendar, Users, ArrowRight, Compass, Sparkles, CheckCircle2, Clock, XCircle, RotateCcw, AlertTriangle } from 'lucide-react';
+import { Plus, MapPin, Calendar, Users, ArrowRight, Compass, Clock, XCircle, RotateCcw, Edit3, Minus } from 'lucide-react';
 import { CancelTripModal } from './CancelTripModal';
 
 export function MyTrips({
@@ -7,7 +7,8 @@ export function MyTrips({
     onOpenCreateModal,
     onSelectTrip,
     onCancelTrip,
-    onRestoreTrip
+    onRestoreTrip,
+    onUpdateTrip
 }) {
     const [selectedTripToCancel, setSelectedTripToCancel] = useState(null);
     const [showCancelled, setShowCancelled] = useState(false);
@@ -16,6 +17,18 @@ export function MyTrips({
     const cancelledTrips = trips.filter((t) => t.status === 'cancelled');
 
     const displayedTrips = showCancelled ? trips : activeOrUpcomingTrips;
+
+    const handleTravelerCountChange = (e, trip, delta) => {
+        e.stopPropagation();
+        const currentCount = trip.travelers || 2;
+        const newCount = Math.max(1, Math.min(20, currentCount + delta));
+        if (newCount !== currentCount && onUpdateTrip) {
+            onUpdateTrip({
+                ...trip,
+                travelers: newCount
+            });
+        }
+    };
 
     return (
         <section className="space-y-3.5 pt-4">
@@ -36,13 +49,13 @@ export function MyTrips({
                         )}
                     </div>
                     <p className="text-xs text-slate-500 dark:text-slate-400">
-                        Manage your active itineraries & journeys.
+                        Manage your active itineraries, dates & number of travelers.
                     </p>
                 </div>
 
                 <button
                     onClick={onOpenCreateModal}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F06536] hover:bg-[#E05325] active:scale-95 text-white text-xs font-semibold shadow-md shadow-[#F06536]/20 transition-all duration-150 touch-manipulation"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F06536] hover:bg-[#E05325] active:scale-95 text-white text-xs font-semibold shadow-md shadow-[#F06536]/20 transition-all duration-150 touch-manipulation cursor-pointer"
                 >
                     <Plus className="w-3.5 h-3.5" />
                     <span>Create Trip</span>
@@ -61,12 +74,12 @@ export function MyTrips({
                             Your next adventure starts here.
                         </h3>
                         <p className="text-xs text-slate-500 dark:text-slate-400 max-w-xs mx-auto">
-                            Pick a destination, choose dates, and let Odyssey craft your personalized day-wise itinerary.
+                            Pick a destination, choose dates, adjust traveler count, and let Odyssey craft your personalized itinerary.
                         </p>
                     </div>
                     <button
                         onClick={onOpenCreateModal}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#F06536] hover:bg-[#E05325] text-white text-xs font-semibold shadow-md shadow-[#F06536]/20 transition-colors"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#F06536] hover:bg-[#E05325] text-white text-xs font-semibold shadow-md shadow-[#F06536]/20 transition-colors cursor-pointer"
                     >
                         <Plus className="w-3.5 h-3.5" />
                         <span>Create your first trip</span>
@@ -79,6 +92,7 @@ export function MyTrips({
                         const progressPercent = trip.totalDays
                             ? Math.min(100, Math.round((trip.currentDay / trip.totalDays) * 100))
                             : 0;
+                        const travelers = trip.travelers || 2;
 
                         return (
                             <div
@@ -92,8 +106,8 @@ export function MyTrips({
                             >
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                                     {/* Left Details */}
-                                    <div className="space-y-1">
-                                        <div className="flex items-center gap-2">
+                                    <div className="space-y-1.5">
+                                        <div className="flex items-center gap-2 flex-wrap">
                                             <h3 className={`text-base sm:text-lg font-bold tracking-tight transition-colors ${
                                                 isCancelled
                                                     ? 'line-through text-slate-400'
@@ -119,8 +133,8 @@ export function MyTrips({
                                             )}
                                         </div>
 
-                                        {/* Metadata Row */}
-                                        <div className="flex flex-wrap items-center gap-y-1 gap-x-3 text-xs text-slate-500 dark:text-slate-400">
+                                        {/* Metadata Row with Interactive Quick-Traveler Stepper */}
+                                        <div className="flex flex-wrap items-center gap-y-1.5 gap-x-3 text-xs text-slate-500 dark:text-slate-400">
                                             <span className="flex items-center gap-1">
                                                 <MapPin className="w-3.5 h-3.5 text-[#F06536]" />
                                                 <span className="font-medium text-slate-700 dark:text-slate-300">{trip.location}</span>
@@ -131,10 +145,43 @@ export function MyTrips({
                                                 <span>{trip.dates}</span>
                                             </span>
                                             <span>•</span>
-                                            <span className="flex items-center gap-1">
-                                                <Users className="w-3.5 h-3.5 text-slate-400" />
-                                                <span>{trip.travelers} {trip.travelers === 1 ? 'traveler' : 'travelers'}</span>
-                                            </span>
+                                            
+                                            {/* Interactive Traveler Count Stepper */}
+                                            {!isCancelled ? (
+                                                <div 
+                                                    onClick={(e) => e.stopPropagation()} 
+                                                    className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold"
+                                                    title="Adjust number of travelers"
+                                                >
+                                                    <Users className="w-3 h-3 text-[#F06536]" />
+                                                    <span>{travelers} {travelers === 1 ? 'person' : 'people'}</span>
+                                                    <div className="flex items-center gap-0.5 ml-1 border-l border-slate-300 dark:border-slate-600 pl-1">
+                                                        <button
+                                                            type="button"
+                                                            disabled={travelers <= 1}
+                                                            onClick={(e) => handleTravelerCountChange(e, trip, -1)}
+                                                            className="w-4 h-4 rounded hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                                                            title="Decrease travelers"
+                                                        >
+                                                            <Minus className="w-2.5 h-2.5" />
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            disabled={travelers >= 20}
+                                                            onClick={(e) => handleTravelerCountChange(e, trip, 1)}
+                                                            className="w-4 h-4 rounded hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                                                            title="Increase travelers"
+                                                        >
+                                                            <Plus className="w-2.5 h-2.5" />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <span className="flex items-center gap-1">
+                                                    <Users className="w-3.5 h-3.5 text-slate-400" />
+                                                    <span>{travelers} {travelers === 1 ? 'traveler' : 'travelers'}</span>
+                                                </span>
+                                            )}
                                         </div>
                                     </div>
 
@@ -179,7 +226,7 @@ export function MyTrips({
                                                 e.stopPropagation();
                                                 onRestoreTrip?.(trip.id);
                                             }}
-                                            className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1"
+                                            className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1 cursor-pointer"
                                         >
                                             <RotateCcw className="w-3.5 h-3.5" />
                                             <span>Restore Trip</span>
@@ -190,25 +237,37 @@ export function MyTrips({
                                                 e.stopPropagation();
                                                 setSelectedTripToCancel(trip);
                                             }}
-                                            className="text-xs font-medium text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 flex items-center gap-1 transition-colors"
+                                            className="text-xs font-medium text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 flex items-center gap-1 transition-colors cursor-pointer"
                                         >
                                             <XCircle className="w-3.5 h-3.5" />
                                             <span>Cancel Trip</span>
                                         </button>
                                     )}
 
-                                    {/* Right: Continue Planning CTA */}
+                                    {/* Right: Edit & Continue Planning CTAs */}
                                     {!isCancelled && (
-                                        <button
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                onSelectTrip?.(trip);
-                                            }}
-                                            className="text-xs font-bold text-[#F06536] hover:text-[#E05325] flex items-center gap-1.5 group-hover:underline underline-offset-2 transition-all"
-                                        >
-                                            <span>Continue Planning</span>
-                                            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                                        </button>
+                                        <div className="flex items-center gap-3">
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    onSelectTrip?.(trip);
+                                                }}
+                                                className="text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-[#F06536] flex items-center gap-1 transition-colors cursor-pointer"
+                                            >
+                                                <Edit3 className="w-3.5 h-3.5" />
+                                                <span>Edit Details</span>
+                                            </button>
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    onSelectTrip?.(trip);
+                                                }}
+                                                className="text-xs font-bold text-[#F06536] hover:text-[#E05325] flex items-center gap-1.5 group-hover:underline underline-offset-2 transition-all cursor-pointer"
+                                            >
+                                                <span>View Odyssey</span>
+                                                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                                            </button>
+                                        </div>
                                     )}
                                 </div>
                             </div>
@@ -227,3 +286,5 @@ export function MyTrips({
         </section>
     );
 }
+
+export default MyTrips;

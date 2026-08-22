@@ -1,5 +1,4 @@
-import React from 'react';
-import { Compass, Trophy, TrendingUp, MapPin, Calendar, Activity, Luggage, Sparkles } from 'lucide-react';
+import { Trophy, MapPin, Calendar, Activity, Luggage, Sparkles } from 'lucide-react';
 
 export function TravelInsights({
     stats = {

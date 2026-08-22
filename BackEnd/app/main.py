@@ -6,25 +6,40 @@ from app.services.gemini_service import generate_itinerary_ai
 
 app = FastAPI(
     title="Odyssey Travel Planner API",
-    description="FastAPI backend for generating tailored travel itineraries using Gemini",
-    version="1.0.0"
+    description="FastAPI backend for generating tailored travel itineraries using Gemini AI and Supabase authentication",
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc"
 )
 
-# Configure CORS so the frontend can communicate with the backend
+# Configure CORS for development & production
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins for development. For production, specify the frontend domain.
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include the itinerary router
+# Include API Router
 app.include_router(api_router)
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to the Odyssey Travel Planner API. Documentation is available at /docs"}
+    return {
+        "name": "Odyssey Travel Planner API",
+        "status": "online",
+        "version": "1.0.0",
+        "documentation": "/docs"
+    }
+
+@app.get("/health")
+@app.get("/api/v1/health")
+def health_check():
+    return {
+        "status": "healthy",
+        "service": "odyssey-backend"
+    }
 
 @app.post("/api/v1/ai/generate-itinerary", response_model=ItineraryResponseSchema)
 def generate_itinerary(req: TripCreateRequest):

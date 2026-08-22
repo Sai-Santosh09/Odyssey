@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { X, MapPin, Check, Navigation, Search, Sparkles, Loader2 } from 'lucide-react';
-import { getCoordinatesForLocation, getCurrentGPSLocation, CITY_COORDINATES } from '../../services/locationService';
+import { X, MapPin, Check, Navigation, Search, Loader2 } from 'lucide-react';
+import { getCurrentGPSLocation } from '../../services/locationService';
 import { googleGeocodeAddress } from '../../services/mapsService';
 
 const POPULAR_LOCATIONS = [

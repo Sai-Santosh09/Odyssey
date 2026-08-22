@@ -1,6 +1,5 @@
-import React from 'react';
-import { X, MapPin, Star, Navigation, Clock, Plus, ExternalLink, Compass, Map as MapIcon } from 'lucide-react';
-import { OdysseyLeafletMap } from './OdysseyLeafletMap';
+import { X, MapPin, Star, Navigation, Clock, Plus, ExternalLink, Map as MapIcon } from 'lucide-react';
+import { OdysseyLeafletMap } from '../map/OdysseyLeafletMap';
 
 export function PlaceMapModal({
     place,
