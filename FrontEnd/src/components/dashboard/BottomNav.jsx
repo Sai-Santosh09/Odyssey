@@ -8,7 +8,7 @@ export function BottomNav({ activeTab = 'explore', onChangeTab, tripsCount = 0 }
         { id: 'foryou', label: 'For You', icon: Sparkles, count: null },
     ];
 
-    const positionClass = 'fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-sm sm:max-w-md px-1 sm:px-2 pointer-events-none';
+    const positionClass = 'fixed bottom-4 sm:bottom-6 mb-safe left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-sm sm:max-w-md px-1 sm:px-2 pointer-events-none';
 
     return (
         <div className={positionClass}>

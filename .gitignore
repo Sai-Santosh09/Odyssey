@@ -80,6 +80,19 @@ ehthumbs.db
 Thumbs.db
 desktop.ini
 
+# Mobile & Capacitor Native Build Artifacts
+.gradle/
+**/android/.gradle/
+**/android/app/build/
+**/android/build/
+*.apk
+*.aab
+**/ios/DerivedData/
+**/ios/Pods/
+*.xcworkspace
+*.xcuserdatad
+Podfile.lock
+
 # Scratchpads & Antigravity Agent Temp Logs
 scratch/
 **/scratch/

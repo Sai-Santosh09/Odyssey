@@ -27,7 +27,7 @@ export function Header({
     };
 
     return (
-        <header className="sticky top-0 z-30 w-full glass-header border-b border-odyssey-tan/40 dark:border-odyssey-brown/50 transition-colors">
+        <header className="sticky top-0 z-30 w-full glass-header border-b border-odyssey-tan/40 dark:border-odyssey-brown/50 transition-colors pt-safe">
             <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 py-2.5 sm:py-3">
                 <div className="flex items-center justify-between gap-3">
                     {/* Brand Logo & Location */}
