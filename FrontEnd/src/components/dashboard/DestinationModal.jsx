@@ -64,7 +64,7 @@ export function DestinationModal({
                             onClick={() => setViewMode('photo')}
                             className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1.5 ${
                                 viewMode === 'photo'
-                                    ? 'bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy text-white shadow-xs'
+                                    ? 'bg-[#8C5E3C] text-white dark:bg-[#BFA06A] dark:text-[#1B1F3B] shadow-xs'
                                     : 'text-white/80 hover:text-white'
                             }`}
                         >
@@ -75,7 +75,7 @@ export function DestinationModal({
                             onClick={() => setViewMode('map')}
                             className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1.5 ${
                                 viewMode === 'map'
-                                    ? 'bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy text-white shadow-xs'
+                                    ? 'bg-[#8C5E3C] text-white dark:bg-[#BFA06A] dark:text-[#1B1F3B] shadow-xs'
                                     : 'text-white/80 hover:text-white'
                             }`}
                         >
@@ -184,10 +184,10 @@ export function DestinationModal({
                                 });
                                 onClose();
                             }}
-                            className="w-full bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy hover:opacity-90 active:scale-[0.99] text-white font-bold text-sm py-3.5 px-4 rounded-2xl shadow-lg shadow-[#F06536]/25 transition-all flex items-center justify-center gap-2"
+                            className="w-full bg-[#8C5E3C] hover:bg-[#784f31] text-white dark:bg-[#BFA06A] dark:text-[#1B1F3B] dark:hover:bg-[#aa8c56] font-extrabold text-sm sm:text-base py-3.5 px-5 rounded-2xl shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
                         >
-                            <span>Plan Trip to {destination.name}</span>
-                            <ArrowRight className="w-4 h-4" />
+                            <span className="font-bold text-white dark:text-[#1B1F3B]">Plan Trip to {destination.name}</span>
+                            <ArrowRight className="w-4 h-4 text-white dark:text-[#1B1F3B]" />
                         </button>
                     </div>
                 </div>

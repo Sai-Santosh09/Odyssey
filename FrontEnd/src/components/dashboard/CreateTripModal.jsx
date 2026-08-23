@@ -384,7 +384,7 @@ export function CreateTripModal({
                                     onClick={() => toggleVibe(vibe.id)}
                                     className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${
                                         selectedVibes.includes(vibe.id)
-                                            ? 'bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy text-white shadow-xs'
+                                            ? 'bg-[#8C5E3C] text-white dark:bg-[#BFA06A] dark:text-[#1B1F3B] shadow-xs font-bold'
                                             : 'bg-slate-100 dark:bg-odyssey-navy text-odyssey-slate dark:text-odyssey-tan hover:bg-slate-200 dark:hover:bg-slate-700'
                                     }`}
                                 >
@@ -400,17 +400,17 @@ export function CreateTripModal({
                         <button
                             type="submit"
                             disabled={isSubmitting || !destination.trim()}
-                            className="w-full bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy hover:opacity-90 disabled:opacity-50 text-white font-bold text-sm py-3.5 px-4 rounded-2xl shadow-lg shadow-[#F06536]/25 transition-all flex items-center justify-center gap-2 active:scale-[0.99]"
+                            className="w-full bg-[#8C5E3C] hover:bg-[#784f31] text-white dark:bg-[#BFA06A] dark:text-[#1B1F3B] dark:hover:bg-[#aa8c56] disabled:opacity-50 font-extrabold text-sm py-3.5 px-5 rounded-2xl shadow-xl transition-all flex items-center justify-center gap-2 active:scale-[0.99] cursor-pointer"
                         >
                             {isSubmitting ? (
                                 <>
-                                    <Loader2 className="w-4 h-4 animate-spin" />
-                                    <span>Creating & Mapping Trip...</span>
+                                    <Loader2 className="w-4 h-4 animate-spin text-white dark:text-[#1B1F3B]" />
+                                    <span className="font-bold text-white dark:text-[#1B1F3B]">Creating & Mapping Trip...</span>
                                 </>
                             ) : (
                                 <>
-                                    <span>Generate Odyssey Itinerary</span>
-                                    <ArrowRight className="w-4 h-4" />
+                                    <span className="font-bold text-white dark:text-[#1B1F3B]">Generate Odyssey Itinerary</span>
+                                    <ArrowRight className="w-4 h-4 text-white dark:text-[#1B1F3B]" />
                                 </>
                             )}
                         </button>

@@ -665,9 +665,9 @@ export function TripDetailsModal({
                                                                     <span className="text-base sm:text-lg font-black text-odyssey-navy dark:text-odyssey-cream">
                                                                         ₹{transit.price_per_person.toLocaleString()}
                                                                     </span>
-                                                                    <span className="text-[10px] text-slate-400 font-medium">/ person</span>
+                                                                    <span className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold">/ person ({transit.mode === 'Flight' ? 'Round-trip' : 'Return'})</span>
                                                                 </div>
-                                                                <span className="text-[10px] text-slate-400 block font-semibold">
+                                                                <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-semibold">
                                                                     ₹{(transit.price_per_person * editForm.travelers).toLocaleString()} total ({editForm.travelers} pax)
                                                                 </span>
                                                             </div>
