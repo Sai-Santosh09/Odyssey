@@ -26,10 +26,10 @@ export function TravelInsights({
             {/* Section Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                    <h2 className="text-lg sm:text-xl font-bold text-odyssey-navy dark:text-odyssey-cream tracking-tight">
                         Your travel insights
                     </h2>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                    <p className="text-xs text-odyssey-slate dark:text-odyssey-tan">
                         Personal travel journal & exploration stats.
                     </p>
                 </div>
@@ -41,30 +41,30 @@ export function TravelInsights({
             </div>
 
             {/* Main Stats Card */}
-            <div className="bg-white dark:bg-[#131B2E] rounded-3xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4 transition-colors">
+            <div className="bg-white dark:bg-odyssey-slate rounded-3xl p-4 sm:p-5 border border-odyssey-tan/40 dark:border-odyssey-brown/50 shadow-sm space-y-4 transition-colors">
                 {/* 4 Stat Tiles */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
-                    <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-2xl border border-slate-100 dark:border-slate-800 text-center space-y-0.5">
-                        <span className="text-lg font-black text-slate-900 dark:text-white tracking-tight">{stats.trips}</span>
-                        <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 flex items-center justify-center gap-1">
-                            <Luggage className="w-3 h-3 text-[#F06536]" /> Trips
+                    <div className="bg-slate-50 dark:bg-odyssey-navy p-3 rounded-2xl border border-odyssey-tan/30 dark:border-odyssey-brown/50 text-center space-y-0.5">
+                        <span className="text-lg font-black text-odyssey-navy dark:text-odyssey-cream tracking-tight">{stats.trips}</span>
+                        <p className="text-[11px] font-semibold text-odyssey-slate dark:text-odyssey-tan flex items-center justify-center gap-1">
+                            <Luggage className="w-3 h-3 text-odyssey-brown dark:text-odyssey-tan" /> Trips
                         </p>
                     </div>
-                    <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-2xl border border-slate-100 dark:border-slate-800 text-center space-y-0.5">
-                        <span className="text-lg font-black text-slate-900 dark:text-white tracking-tight">{stats.places}</span>
-                        <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 flex items-center justify-center gap-1">
+                    <div className="bg-slate-50 dark:bg-odyssey-navy p-3 rounded-2xl border border-odyssey-tan/30 dark:border-odyssey-brown/50 text-center space-y-0.5">
+                        <span className="text-lg font-black text-odyssey-navy dark:text-odyssey-cream tracking-tight">{stats.places}</span>
+                        <p className="text-[11px] font-semibold text-odyssey-slate dark:text-odyssey-tan flex items-center justify-center gap-1">
                             <MapPin className="w-3 h-3 text-sky-500" /> Places
                         </p>
                     </div>
-                    <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-2xl border border-slate-100 dark:border-slate-800 text-center space-y-0.5">
-                        <span className="text-lg font-black text-slate-900 dark:text-white tracking-tight">{stats.activities}</span>
-                        <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 flex items-center justify-center gap-1">
+                    <div className="bg-slate-50 dark:bg-odyssey-navy p-3 rounded-2xl border border-odyssey-tan/30 dark:border-odyssey-brown/50 text-center space-y-0.5">
+                        <span className="text-lg font-black text-odyssey-navy dark:text-odyssey-cream tracking-tight">{stats.activities}</span>
+                        <p className="text-[11px] font-semibold text-odyssey-slate dark:text-odyssey-tan flex items-center justify-center gap-1">
                             <Activity className="w-3 h-3 text-emerald-500" /> Activities
                         </p>
                     </div>
-                    <div className="bg-slate-50 dark:bg-slate-900 p-3 rounded-2xl border border-slate-100 dark:border-slate-800 text-center space-y-0.5">
-                        <span className="text-lg font-black text-slate-900 dark:text-white tracking-tight">{stats.days}</span>
-                        <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 flex items-center justify-center gap-1">
+                    <div className="bg-slate-50 dark:bg-odyssey-navy p-3 rounded-2xl border border-odyssey-tan/30 dark:border-odyssey-brown/50 text-center space-y-0.5">
+                        <span className="text-lg font-black text-odyssey-navy dark:text-odyssey-cream tracking-tight">{stats.days}</span>
+                        <p className="text-[11px] font-semibold text-odyssey-slate dark:text-odyssey-tan flex items-center justify-center gap-1">
                             <Calendar className="w-3 h-3 text-indigo-500" /> Days
                         </p>
                     </div>
@@ -72,7 +72,7 @@ export function TravelInsights({
 
                 {/* Visual Category Breakdown Chart */}
                 <div className="space-y-2.5 pt-1">
-                    <div className="flex items-center justify-between text-xs font-bold text-slate-800 dark:text-slate-200">
+                    <div className="flex items-center justify-between text-xs font-bold text-odyssey-navy dark:text-odyssey-cream">
                         <span>Activities by category</span>
                         <span className="text-[11px] text-slate-400 font-medium">{totalActivities} logged</span>
                     </div>
@@ -82,13 +82,13 @@ export function TravelInsights({
                         {categoryBreakdown.map((cat) => (
                             <div key={cat.name} className="space-y-1">
                                 <div className="flex items-center justify-between text-xs">
-                                    <span className="text-slate-700 dark:text-slate-300 font-medium flex items-center gap-1.5">
+                                    <span className="text-odyssey-slate dark:text-odyssey-tan font-medium flex items-center gap-1.5">
                                         <span>{cat.icon}</span>
                                         <span>{cat.name}</span>
                                     </span>
-                                    <span className="font-bold text-slate-900 dark:text-white">{cat.percent}%</span>
+                                    <span className="font-bold text-odyssey-navy dark:text-odyssey-cream">{cat.percent}%</span>
                                 </div>
-                                <div className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div className="w-full h-2 bg-slate-100 dark:bg-odyssey-navy rounded-full overflow-hidden">
                                     <div
                                         className={`h-full bg-gradient-to-r ${cat.color} rounded-full transition-all duration-700`}
                                         style={{ width: `${cat.percent}%` }}
@@ -100,15 +100,15 @@ export function TravelInsights({
                 </div>
 
                 {/* Milestone Quote Badge */}
-                <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-950/40 dark:to-amber-950/30 rounded-2xl p-3 border border-orange-100 dark:border-orange-900/60 flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-[#F06536] text-white flex items-center justify-center flex-shrink-0 shadow-xs">
+                <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-950/40 dark:to-amber-950/30 rounded-2xl p-3 border border-orange-100 dark:border-odyssey-brown/50 flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-xl bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy text-white flex items-center justify-center flex-shrink-0 shadow-xs">
                         <Sparkles className="w-4 h-4" />
                     </div>
                     <div className="text-xs">
-                        <p className="font-bold text-slate-900 dark:text-white">
+                        <p className="font-bold text-odyssey-navy dark:text-odyssey-cream">
                             {stats.trips > 0 ? 'Next Badge: Global Trailblazer' : 'Next Badge: First Odyssey'}
                         </p>
-                        <p className="text-slate-600 dark:text-slate-300 text-[11px]">
+                        <p className="text-odyssey-slate dark:text-odyssey-tan text-[11px]">
                             {stats.trips > 0
                                 ? 'Visit 2 more destinations to unlock Level 5 perks.'
                                 : 'Create your first trip to start your Odyssey journey.'}

@@ -55,15 +55,15 @@ export function RecommendedForYou({ onAddToTrip, onSelectRecommendation }) {
             <div className="flex items-center justify-between">
                 <div>
                     <div className="flex items-center gap-1.5">
-                        <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                        <h2 className="text-lg sm:text-xl font-bold text-odyssey-navy dark:text-odyssey-cream tracking-tight">
                             Picked for you
                         </h2>
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-orange-100 dark:bg-orange-950/40 text-[#F06536] flex items-center gap-1">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-odyssey-cream/60 dark:bg-odyssey-navy dark:bg-odyssey-navy text-odyssey-brown dark:text-odyssey-tan flex items-center gap-1">
                             <Sparkles className="w-2.5 h-2.5" />
                             AI Matched
                         </span>
                     </div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                    <p className="text-xs text-odyssey-slate dark:text-odyssey-tan">
                         Based on your travel preferences & past journeys.
                     </p>
                 </div>
@@ -75,7 +75,7 @@ export function RecommendedForYou({ onAddToTrip, onSelectRecommendation }) {
                     <div
                         key={rec.id}
                         onClick={() => onSelectRecommendation?.(rec)}
-                        className="group bg-white dark:bg-[#131B2E] rounded-3xl p-3.5 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg hover:border-orange-200 dark:hover:border-orange-900 transition-all duration-200 cursor-pointer flex flex-col justify-between"
+                        className="group bg-white dark:bg-odyssey-slate rounded-3xl p-3.5 border border-odyssey-tan/40 dark:border-odyssey-brown/50 shadow-sm hover:shadow-lg hover:border-odyssey-tan/40 dark:hover:border-orange-900 transition-all duration-200 cursor-pointer flex flex-col justify-between"
                     >
                         {/* Image Banner */}
                         <div className="relative h-32 rounded-2xl overflow-hidden bg-slate-900 mb-3">
@@ -97,7 +97,7 @@ export function RecommendedForYou({ onAddToTrip, onSelectRecommendation }) {
                             {/* Vibe Pill */}
                             <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-white text-xs font-semibold">
                                 <span>{rec.vibe}</span>
-                                <div className="flex items-center gap-1 text-amber-300 text-xs font-bold bg-black/40 backdrop-blur-sm px-1.5 py-0.5 rounded-md">
+                                <div className="flex items-center gap-1 text-amber-300 text-xs font-bold bg-odyssey-navy/50 backdrop-blur-sm px-1.5 py-0.5 rounded-md">
                                     <Star className="w-3 h-3 fill-amber-300" />
                                     <span>{rec.rating}</span>
                                 </div>
@@ -106,17 +106,17 @@ export function RecommendedForYou({ onAddToTrip, onSelectRecommendation }) {
 
                         {/* Card Content */}
                         <div className="space-y-1 flex-1">
-                            <h4 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-[#F06536] transition-colors leading-snug">
+                            <h4 className="text-sm font-bold text-odyssey-navy dark:text-odyssey-cream group-hover:text-odyssey-brown dark:text-odyssey-tan transition-colors leading-snug">
                                 {rec.title}
                             </h4>
-                            <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2">
+                            <p className="text-[11px] text-odyssey-slate dark:text-odyssey-tan line-clamp-2">
                                 {rec.description}
                             </p>
                         </div>
 
                         {/* Actions */}
-                        <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                            <span className="text-[11px] font-medium text-slate-400 dark:text-slate-500">
+                        <div className="mt-3 pt-2.5 border-t border-odyssey-tan/30 dark:border-odyssey-brown/50 flex items-center justify-between">
+                            <span className="text-[11px] font-medium text-slate-400 dark:text-odyssey-tan/80">
                                 ⏱️ {rec.duration}
                             </span>
                             <button
@@ -124,7 +124,7 @@ export function RecommendedForYou({ onAddToTrip, onSelectRecommendation }) {
                                     e.stopPropagation();
                                     onAddToTrip?.(rec);
                                 }}
-                                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-orange-50 dark:bg-orange-950/40 hover:bg-[#F06536] text-[#F06536] hover:text-white text-xs font-bold transition-all shadow-xs active:scale-95"
+                                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-odyssey-cream/60 dark:bg-odyssey-navy dark:bg-odyssey-navy hover:bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy text-odyssey-brown dark:text-odyssey-tan hover:text-white text-xs font-bold transition-all shadow-xs active:scale-95"
                             >
                                 <Plus className="w-3 h-3" />
                                 <span>Add to Trip</span>

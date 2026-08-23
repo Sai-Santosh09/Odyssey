@@ -42,25 +42,25 @@ export function TravelerProfileModal({
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-[#131B2E] rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-7 space-y-5 animate-in zoom-in-95 duration-200 transition-colors">
+            <div className="bg-white dark:bg-odyssey-slate rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-odyssey-tan/40 dark:border-odyssey-brown/50 p-5 sm:p-7 space-y-5 animate-in zoom-in-95 duration-200 transition-colors">
                 {/* Header */}
-                <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3.5">
+                <div className="flex items-center justify-between border-b border-odyssey-tan/30 dark:border-odyssey-brown/50 pb-3.5">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#F06536] to-amber-400 text-white font-black text-base flex items-center justify-center shadow-md shadow-[#F06536]/20">
                             {userEmail ? userEmail.charAt(0).toUpperCase() : 'E'}
                         </div>
                         <div>
-                            <h2 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">
+                            <h2 className="text-lg font-bold text-odyssey-navy dark:text-odyssey-cream tracking-tight">
                                 Traveler Profile
                             </h2>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 truncate max-w-[200px] sm:max-w-xs">
+                            <p className="text-xs text-odyssey-slate dark:text-odyssey-tan truncate max-w-[200px] sm:max-w-xs">
                                 {userEmail}
                             </p>
                         </div>
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+                        className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-odyssey-slate dark:hover:text-slate-200 transition-colors"
                         aria-label="Close dialog"
                     >
                         <X className="w-4 h-4" />
@@ -68,13 +68,13 @@ export function TravelerProfileModal({
                 </div>
 
                 {/* Sub-tab Switcher: Preferences vs Travel History */}
-                <div className="grid grid-cols-2 p-1 bg-slate-100 dark:bg-slate-900 rounded-2xl">
+                <div className="grid grid-cols-2 p-1 bg-slate-100 dark:bg-odyssey-navy rounded-2xl">
                     <button
                         onClick={() => setActiveSection('preferences')}
                         className={`py-2 text-xs font-bold rounded-xl transition-all ${
                             activeSection === 'preferences'
-                                ? 'bg-white dark:bg-[#131B2E] text-[#F06536] shadow-sm'
-                                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                ? 'bg-white dark:bg-odyssey-slate text-odyssey-brown dark:text-odyssey-tan shadow-sm'
+                                : 'text-odyssey-slate dark:text-odyssey-tan hover:text-odyssey-navy dark:hover:text-white'
                         }`}
                     >
                         ✨ Travel Preferences
@@ -83,8 +83,8 @@ export function TravelerProfileModal({
                         onClick={() => setActiveSection('history')}
                         className={`py-2 text-xs font-bold rounded-xl transition-all ${
                             activeSection === 'history'
-                                ? 'bg-white dark:bg-[#131B2E] text-[#F06536] shadow-sm'
-                                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                ? 'bg-white dark:bg-odyssey-slate text-odyssey-brown dark:text-odyssey-tan shadow-sm'
+                                : 'text-odyssey-slate dark:text-odyssey-tan hover:text-odyssey-navy dark:hover:text-white'
                         }`}
                     >
                         🧳 Travel History ({travelHistory.length})
@@ -96,7 +96,7 @@ export function TravelerProfileModal({
                     <div className="space-y-4">
                         {/* Budget Preference */}
                         <div className="space-y-1.5">
-                            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                            <label className="block text-xs font-bold text-odyssey-slate dark:text-odyssey-tan uppercase tracking-wider">
                                 Budget Tier
                             </label>
                             <div className="grid grid-cols-3 gap-2">
@@ -111,8 +111,8 @@ export function TravelerProfileModal({
                                         onClick={() => setBudget(b.val)}
                                         className={`p-2.5 rounded-xl border text-left text-xs font-semibold transition-all ${
                                             budget === b.val
-                                                ? 'bg-orange-50/80 dark:bg-orange-950/40 border-[#F06536] text-[#F06536] shadow-xs'
-                                                : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
+                                                ? 'bg-odyssey-cream/60 dark:bg-odyssey-navy/80 dark:bg-odyssey-navy border-odyssey-tan/40 dark:border-odyssey-brown/50 text-odyssey-brown dark:text-odyssey-tan shadow-xs'
+                                                : 'bg-slate-50 dark:bg-odyssey-navy border-odyssey-tan/40 dark:border-odyssey-brown/50 text-odyssey-slate dark:text-odyssey-tan'
                                         }`}
                                     >
                                         <p className="font-bold">{b.label}</p>
@@ -124,7 +124,7 @@ export function TravelerProfileModal({
 
                         {/* Travel Style (Vibe) */}
                         <div className="space-y-1.5">
-                            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                            <label className="block text-xs font-bold text-odyssey-slate dark:text-odyssey-tan uppercase tracking-wider">
                                 Travel Styles & Passions
                             </label>
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -144,8 +144,8 @@ export function TravelerProfileModal({
                                             onClick={() => toggleStyle(st.name)}
                                             className={`p-2 rounded-xl text-xs font-semibold border flex items-center gap-1.5 transition-all ${
                                                 isSel
-                                                    ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white shadow-xs'
-                                                    : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
+                                                    ? 'bg-slate-900 dark:bg-white text-white dark:text-odyssey-navy border-slate-900 dark:border-white shadow-xs'
+                                                    : 'bg-slate-50 dark:bg-odyssey-navy border-odyssey-tan/40 dark:border-odyssey-brown/50 text-odyssey-slate dark:text-odyssey-tan'
                                             }`}
                                         >
                                             <span>{st.icon}</span>
@@ -158,7 +158,7 @@ export function TravelerProfileModal({
 
                         {/* Preferred Transport */}
                         <div className="space-y-1.5">
-                            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                            <label className="block text-xs font-bold text-odyssey-slate dark:text-odyssey-tan uppercase tracking-wider">
                                 Preferred Transport
                             </label>
                             <div className="grid grid-cols-4 gap-2">
@@ -174,8 +174,8 @@ export function TravelerProfileModal({
                                         onClick={() => setTransport(t.val)}
                                         className={`py-2 px-1 text-center rounded-xl text-xs font-semibold border transition-all ${
                                             transport === t.val
-                                                ? 'bg-orange-50 dark:bg-orange-950/40 border-[#F06536] text-[#F06536]'
-                                                : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
+                                                ? 'bg-odyssey-cream/60 dark:bg-odyssey-navy dark:bg-odyssey-navy border-odyssey-tan/40 dark:border-odyssey-brown/50 text-odyssey-brown dark:text-odyssey-tan'
+                                                : 'bg-slate-50 dark:bg-odyssey-navy border-odyssey-tan/40 dark:border-odyssey-brown/50 text-odyssey-slate dark:text-odyssey-tan'
                                         }`}
                                     >
                                         {t.label}
@@ -186,7 +186,7 @@ export function TravelerProfileModal({
 
                         {/* Travel Pace */}
                         <div className="space-y-1.5">
-                            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                            <label className="block text-xs font-bold text-odyssey-slate dark:text-odyssey-tan uppercase tracking-wider">
                                 Travel Pace
                             </label>
                             <div className="grid grid-cols-3 gap-2">
@@ -201,8 +201,8 @@ export function TravelerProfileModal({
                                         onClick={() => setPace(p.val)}
                                         className={`py-2 text-center rounded-xl text-xs font-semibold border transition-all ${
                                             pace === p.val
-                                                ? 'bg-[#F06536] text-white border-[#F06536]'
-                                                : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300'
+                                                ? 'bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy text-white border-odyssey-tan/40 dark:border-odyssey-brown/50'
+                                                : 'bg-slate-50 dark:bg-odyssey-navy border-odyssey-tan/40 dark:border-odyssey-brown/50 text-odyssey-slate dark:text-odyssey-tan'
                                         }`}
                                     >
                                         {p.label}
@@ -214,7 +214,7 @@ export function TravelerProfileModal({
                         <div className="pt-2">
                             <button
                                 onClick={handleSave}
-                                className="w-full py-3 bg-[#F06536] hover:bg-[#E05325] text-white font-bold text-xs sm:text-sm rounded-2xl shadow-lg shadow-[#F06536]/25 transition-all"
+                                className="w-full py-3 bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy hover:opacity-90 text-white font-bold text-xs sm:text-sm rounded-2xl shadow-lg shadow-[#F06536]/25 transition-all"
                             >
                                 Save Preferences & Update AI Recommendations
                             </button>
@@ -224,17 +224,17 @@ export function TravelerProfileModal({
                     /* Section 2: Travel History */
                     <div className="space-y-3">
                         {travelHistory.length === 0 ? (
-                            <div className="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-6 text-center border border-dashed border-slate-200 dark:border-slate-800 space-y-2">
+                            <div className="bg-slate-50 dark:bg-odyssey-navy/70 rounded-2xl p-6 text-center border border-dashed border-odyssey-tan/40 dark:border-odyssey-brown/50 space-y-2">
                                 <Luggage className="w-8 h-8 text-slate-400 mx-auto" />
-                                <p className="text-xs font-bold text-slate-700 dark:text-slate-300">No completed journeys yet</p>
-                                <p className="text-[11px] text-slate-500 dark:text-slate-400">Completed journeys will appear in your travel history log.</p>
+                                <p className="text-xs font-bold text-odyssey-slate dark:text-odyssey-tan">No completed journeys yet</p>
+                                <p className="text-[11px] text-odyssey-slate dark:text-odyssey-tan">Completed journeys will appear in your travel history log.</p>
                             </div>
                         ) : (
                             <div className="space-y-2.5">
                                 {travelHistory.map((h) => (
                                     <div
                                         key={h.id}
-                                        className="bg-slate-50 dark:bg-slate-900/70 rounded-2xl p-3 border border-slate-200/80 dark:border-slate-800 flex items-center justify-between gap-3"
+                                        className="bg-slate-50 dark:bg-odyssey-navy/70 rounded-2xl p-3 border border-odyssey-tan/40/80 dark:border-odyssey-brown/50 flex items-center justify-between gap-3"
                                     >
                                         <div className="flex items-center gap-3">
                                             {h.image && (
@@ -246,15 +246,15 @@ export function TravelerProfileModal({
                                             )}
                                             <div className="space-y-0.5">
                                                 <div className="flex items-center gap-1.5">
-                                                    <h4 className="text-xs font-bold text-slate-900 dark:text-white">
+                                                    <h4 className="text-xs font-bold text-odyssey-navy dark:text-odyssey-cream">
                                                         {h.title}
                                                     </h4>
                                                     <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-100 text-emerald-800">
                                                         Completed
                                                     </span>
                                                 </div>
-                                                <p className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                                                    <MapPin className="w-3 h-3 text-[#F06536]" />
+                                                <p className="text-[11px] text-odyssey-slate dark:text-odyssey-tan flex items-center gap-1">
+                                                    <MapPin className="w-3 h-3 text-odyssey-brown dark:text-odyssey-tan" />
                                                     <span>{h.destination}</span>
                                                 </p>
                                                 <p className="text-[10px] text-slate-400">

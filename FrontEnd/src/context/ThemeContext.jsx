@@ -23,13 +23,18 @@ export function ThemeProvider({ children }) {
 
     useEffect(() => {
         const root = document.documentElement;
+        const body = document.body;
         if (theme === 'dark') {
             root.classList.add('dark');
             root.classList.remove('light');
+            body?.classList.add('dark');
+            body?.classList.remove('light');
             root.setAttribute('data-theme', 'dark');
         } else {
             root.classList.remove('dark');
             root.classList.add('light');
+            body?.classList.remove('dark');
+            body?.classList.add('light');
             root.setAttribute('data-theme', 'light');
         }
         localStorage.setItem('odyssey-theme', theme);

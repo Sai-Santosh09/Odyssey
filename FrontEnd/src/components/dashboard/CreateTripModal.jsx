@@ -185,26 +185,26 @@ export function CreateTripModal({
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-[#131B2E] rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-200 dark:border-slate-800 p-5 sm:p-7 space-y-5 animate-in zoom-in-95 duration-200 transition-colors">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-odyssey-navy/70 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="bg-white dark:bg-odyssey-slate rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-odyssey-tan/40 dark:border-odyssey-brown/50 p-5 sm:p-7 space-y-5 animate-in zoom-in-95 duration-200 transition-colors">
                 {/* Modal Header */}
-                <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3.5">
+                <div className="flex items-center justify-between border-b border-odyssey-tan/30 dark:border-odyssey-brown/50 pb-3.5">
                     <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-full bg-[#F06536]/10 dark:bg-[#F06536]/20 text-[#F06536] flex items-center justify-center">
+                        <div className="w-8 h-8 rounded-full bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy/10 dark:bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy/20 text-odyssey-brown dark:text-odyssey-tan flex items-center justify-center">
                             <Compass className="w-4 h-4" />
                         </div>
                         <div>
-                            <h2 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">
+                            <h2 className="text-lg font-bold text-odyssey-navy dark:text-odyssey-cream tracking-tight">
                                 Create your trip
                             </h2>
-                            <p className="text-xs text-slate-500 dark:text-slate-400">
+                            <p className="text-xs text-odyssey-slate dark:text-odyssey-tan">
                                 Leaflet map verification & trip setup.
                             </p>
                         </div>
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+                        className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-odyssey-slate dark:hover:text-slate-200 transition-colors"
                         aria-label="Close dialog"
                     >
                         <X className="w-4 h-4" />
@@ -216,7 +216,7 @@ export function CreateTripModal({
                     {/* Destination Search & Google Places Autocomplete */}
                     <div className="space-y-1.5 relative">
                         <div className="flex items-center justify-between">
-                            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                            <label className="block text-xs font-bold text-odyssey-slate dark:text-odyssey-tan uppercase tracking-wider">
                                 Where are you going?
                             </label>
                             {/* Verification Green Tick Badge */}
@@ -229,7 +229,7 @@ export function CreateTripModal({
                         </div>
 
                         <div className="relative">
-                            <MapPin className={`absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 ${isVerified ? 'text-emerald-500' : 'text-[#F06536]'}`} />
+                            <MapPin className={`absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 ${isVerified ? 'text-emerald-500' : 'text-odyssey-brown dark:text-odyssey-tan'}`} />
                             <input
                                 type="text"
                                 required
@@ -240,7 +240,7 @@ export function CreateTripModal({
                                 }}
                                 onFocus={() => setShowPredictions(true)}
                                 placeholder="Search destination with Places autocomplete..."
-                                className="w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#F06536]/20 focus:border-[#F06536] transition-all"
+                                className="w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-odyssey-navy border border-odyssey-tan/40 dark:border-odyssey-brown/50 rounded-2xl text-xs sm:text-sm text-odyssey-navy dark:text-odyssey-cream placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#F06536]/20 focus:border-odyssey-tan/40 dark:border-odyssey-brown/50 transition-all"
                             />
                             {isSearchingPlaces && (
                                 <Loader2 className="w-4 h-4 text-slate-400 animate-spin absolute right-3.5 top-1/2 -translate-y-1/2" />
@@ -249,16 +249,16 @@ export function CreateTripModal({
 
                         {/* Autocomplete Predictions Dropdown */}
                         {showPredictions && predictions.length > 0 && (
-                            <div className="absolute top-full left-0 right-0 z-30 mt-1 bg-white dark:bg-[#182238] rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 max-h-48 overflow-y-auto py-1 animate-in fade-in duration-150">
+                            <div className="absolute top-full left-0 right-0 z-30 mt-1 bg-white dark:bg-odyssey-navy rounded-2xl shadow-xl border border-odyssey-tan/40 dark:border-odyssey-brown/50 max-h-48 overflow-y-auto py-1 animate-in fade-in duration-150">
                                 {predictions.map((pred, idx) => (
                                     <button
                                         type="button"
                                         key={idx}
                                         onClick={() => handleSelectPrediction(pred)}
-                                        className="w-full px-3.5 py-2 text-left text-xs font-semibold text-slate-800 dark:text-slate-200 hover:bg-orange-50 dark:hover:bg-orange-950/40 flex items-center justify-between gap-2 transition-colors"
+                                        className="w-full px-3.5 py-2 text-left text-xs font-semibold text-odyssey-navy dark:text-odyssey-cream hover:bg-odyssey-cream/60 dark:bg-odyssey-navy dark:hover:bg-orange-950/40 flex items-center justify-between gap-2 transition-colors"
                                     >
                                         <div className="flex items-center gap-2 truncate">
-                                            <MapPin className="w-3.5 h-3.5 text-[#F06536] flex-shrink-0" />
+                                            <MapPin className="w-3.5 h-3.5 text-odyssey-brown dark:text-odyssey-tan flex-shrink-0" />
                                             <span className="truncate">{pred.name}</span>
                                         </div>
                                         <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold flex-shrink-0">
@@ -282,7 +282,7 @@ export function CreateTripModal({
                                         setIsVerified(true);
                                         setShowPredictions(false);
                                     }}
-                                    className="px-2.5 py-1 rounded-lg text-[11px] font-medium bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors"
+                                    className="px-2.5 py-1 rounded-lg text-[11px] font-medium bg-slate-100 dark:bg-odyssey-navy hover:bg-slate-200 dark:hover:bg-slate-700 text-odyssey-slate dark:text-odyssey-tan transition-colors"
                                 >
                                     {place}
                                 </button>
@@ -292,11 +292,11 @@ export function CreateTripModal({
 
                     {/* Accurate Distance Callout */}
                     {distInfo && destination.trim() && (
-                        <div className="p-2.5 rounded-xl bg-orange-50 dark:bg-orange-950/30 border border-orange-200/60 dark:border-orange-900/60 flex items-center justify-between text-xs animate-in fade-in duration-200">
-                            <span className="text-slate-600 dark:text-slate-400">
-                                Distance from <strong className="text-slate-800 dark:text-slate-200">{currentLocation.split(',')[0]}</strong>:
+                        <div className="p-2.5 rounded-xl bg-odyssey-cream/60 dark:bg-odyssey-navy dark:bg-odyssey-navy border border-odyssey-tan/40 dark:border-odyssey-brown/50 flex items-center justify-between text-xs animate-in fade-in duration-200">
+                            <span className="text-odyssey-slate dark:text-odyssey-tan">
+                                Distance from <strong className="text-odyssey-navy dark:text-odyssey-cream">{currentLocation.split(',')[0]}</strong>:
                             </span>
-                            <span className="font-bold text-[#F06536] flex items-center gap-1">
+                            <span className="font-bold text-odyssey-brown dark:text-odyssey-tan flex items-center gap-1">
                                 <span>🚀 {distInfo.fullBadge}</span>
                             </span>
                         </div>
@@ -304,9 +304,9 @@ export function CreateTripModal({
 
                     {/* Interactive Leaflet Map Preview */}
                     <div className="space-y-1">
-                        <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 dark:text-slate-400">
+                        <div className="flex items-center justify-between text-[11px] font-bold text-odyssey-slate dark:text-odyssey-tan">
                             <span className="flex items-center gap-1">
-                                <Layers className="w-3.5 h-3.5 text-[#F06536]" />
+                                <Layers className="w-3.5 h-3.5 text-odyssey-brown dark:text-odyssey-tan" />
                                 Leaflet Dynamic Map
                             </span>
                             <span className="font-mono text-[10px]">
@@ -325,32 +325,32 @@ export function CreateTripModal({
                     {/* Dates Row */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div className="space-y-1.5">
-                            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                            <label className="block text-xs font-bold text-odyssey-slate dark:text-odyssey-tan uppercase tracking-wider">
                                 Start Date
                             </label>
                             <input
                                 type="date"
                                 value={startDate}
                                 onChange={(e) => setStartDate(e.target.value)}
-                                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#F06536]/20 focus:border-[#F06536]"
+                                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-odyssey-navy border border-odyssey-tan/40 dark:border-odyssey-brown/50 rounded-2xl text-xs text-odyssey-navy dark:text-odyssey-cream focus:outline-none focus:ring-2 focus:ring-[#F06536]/20 focus:border-odyssey-tan/40 dark:border-odyssey-brown/50"
                             />
                         </div>
                         <div className="space-y-1.5">
-                            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                            <label className="block text-xs font-bold text-odyssey-slate dark:text-odyssey-tan uppercase tracking-wider">
                                 End Date
                             </label>
                             <input
                                 type="date"
                                 value={endDate}
                                 onChange={(e) => setEndDate(e.target.value)}
-                                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#F06536]/20 focus:border-[#F06536]"
+                                className="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-odyssey-navy border border-odyssey-tan/40 dark:border-odyssey-brown/50 rounded-2xl text-xs text-odyssey-navy dark:text-odyssey-cream focus:outline-none focus:ring-2 focus:ring-[#F06536]/20 focus:border-odyssey-tan/40 dark:border-odyssey-brown/50"
                             />
                         </div>
                     </div>
 
                     {/* Travelers Count */}
                     <div className="space-y-1.5">
-                        <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                        <label className="block text-xs font-bold text-odyssey-slate dark:text-odyssey-tan uppercase tracking-wider">
                             Number of Travelers
                         </label>
                         <div className="flex items-center gap-3">
@@ -361,8 +361,8 @@ export function CreateTripModal({
                                     onClick={() => setTravelers(num)}
                                     className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${
                                         travelers === num
-                                            ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-sm'
-                                            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                                            ? 'bg-slate-900 dark:bg-white text-white dark:text-odyssey-navy shadow-sm'
+                                            : 'bg-slate-100 dark:bg-odyssey-navy text-odyssey-slate dark:text-odyssey-tan hover:bg-slate-200 dark:hover:bg-slate-700'
                                     }`}
                                 >
                                     {num} {num === 1 ? 'Solo' : 'Pax'}
@@ -373,7 +373,7 @@ export function CreateTripModal({
 
                     {/* Vibe Selection */}
                     <div className="space-y-1.5">
-                        <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                        <label className="block text-xs font-bold text-odyssey-slate dark:text-odyssey-tan uppercase tracking-wider">
                             Travel Vibe
                         </label>
                         <div className="flex flex-wrap gap-2">
@@ -384,8 +384,8 @@ export function CreateTripModal({
                                     onClick={() => toggleVibe(vibe.id)}
                                     className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${
                                         selectedVibes.includes(vibe.id)
-                                            ? 'bg-[#F06536] text-white shadow-xs'
-                                            : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                                            ? 'bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy text-white shadow-xs'
+                                            : 'bg-slate-100 dark:bg-odyssey-navy text-odyssey-slate dark:text-odyssey-tan hover:bg-slate-200 dark:hover:bg-slate-700'
                                     }`}
                                 >
                                     <span>{vibe.icon}</span>
@@ -400,7 +400,7 @@ export function CreateTripModal({
                         <button
                             type="submit"
                             disabled={isSubmitting || !destination.trim()}
-                            className="w-full bg-[#F06536] hover:bg-[#E05325] disabled:opacity-50 text-white font-bold text-sm py-3.5 px-4 rounded-2xl shadow-lg shadow-[#F06536]/25 transition-all flex items-center justify-center gap-2 active:scale-[0.99]"
+                            className="w-full bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy hover:opacity-90 disabled:opacity-50 text-white font-bold text-sm py-3.5 px-4 rounded-2xl shadow-lg shadow-[#F06536]/25 transition-all flex items-center justify-center gap-2 active:scale-[0.99]"
                         >
                             {isSubmitting ? (
                                 <>

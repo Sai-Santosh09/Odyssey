@@ -58,9 +58,9 @@ export function MobileDeviceFrame({
                 <div className="absolute -right-[7px] top-36 w-[3px] h-16 bg-slate-600 rounded-r-sm" />
 
                 {/* Smartphone Screen Viewport Container */}
-                <div className="relative w-full h-full rounded-[38px] overflow-hidden bg-slate-50 dark:bg-[#0B0F17] flex flex-col shadow-inner select-none">
+                <div className="relative w-full h-full rounded-[38px] overflow-hidden bg-odyssey-blue-poppy dark:bg-odyssey-navy flex flex-col shadow-inner select-none">
                     {/* Native Mobile Status Bar with Dynamic Island */}
-                    <div className="shrink-0 z-50 w-full px-5 pt-3 pb-1.5 flex items-center justify-between text-xs font-semibold text-slate-900 dark:text-white bg-white/80 dark:bg-[#0B0F17]/80 backdrop-blur-md border-b border-slate-100/50 dark:border-slate-800/50 select-none">
+                    <div className="shrink-0 z-50 w-full px-5 pt-3 pb-1.5 flex items-center justify-between text-xs font-semibold text-odyssey-navy dark:text-odyssey-cream bg-odyssey-blue-poppy/80 dark:bg-odyssey-navy/80 backdrop-blur-md border-b border-odyssey-tan/20 dark:border-odyssey-brown/30 select-none">
                         <span className="font-bold tracking-tight text-[12px]">{currentTime || '9:41'}</span>
 
                         <div className="w-20 h-4.5 rounded-full bg-black flex items-center justify-center gap-1.5 shadow-xs">

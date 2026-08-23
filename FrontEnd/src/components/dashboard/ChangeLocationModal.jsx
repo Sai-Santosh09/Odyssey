@@ -63,26 +63,26 @@ export function ChangeLocationModal({
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-[#131B2E] rounded-3xl max-w-sm w-full shadow-2xl border border-slate-200 dark:border-slate-800 p-5 space-y-4 animate-in zoom-in-95 duration-200 transition-colors">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-odyssey-navy/70 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="bg-white dark:bg-odyssey-slate rounded-3xl max-w-sm w-full shadow-2xl border border-odyssey-tan/40 dark:border-odyssey-brown/50 p-5 space-y-4 animate-in zoom-in-95 duration-200 transition-colors">
                 {/* Header */}
-                <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                <div className="flex items-center justify-between border-b border-odyssey-tan/30 dark:border-odyssey-brown/50 pb-3">
                     <div className="flex items-center gap-2">
-                        <div className="w-7 h-7 rounded-full bg-orange-50 dark:bg-orange-950/40 text-[#F06536] flex items-center justify-center">
+                        <div className="w-7 h-7 rounded-full bg-odyssey-cream/60 dark:bg-odyssey-navy dark:bg-odyssey-navy text-odyssey-brown dark:text-odyssey-tan flex items-center justify-center">
                             <MapPin className="w-4 h-4" />
                         </div>
                         <div>
-                            <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                            <h3 className="text-base font-bold text-odyssey-navy dark:text-odyssey-cream">
                                 Change Location
                             </h3>
-                            <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                            <p className="text-[11px] text-odyssey-slate dark:text-odyssey-tan">
                                 Updates Near You, Radar & Trip Distances
                             </p>
                         </div>
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 dark:text-slate-500"
+                        className="p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 dark:text-odyssey-tan/80"
                     >
                         <X className="w-4 h-4" />
                     </button>
@@ -116,7 +116,7 @@ export function ChangeLocationModal({
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Search any city or country (Press Enter)..."
-                        className="w-full pl-9 pr-3 py-2.5 text-xs bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:border-[#F06536]"
+                        className="w-full pl-9 pr-3 py-2.5 text-xs bg-slate-50 dark:bg-odyssey-navy border border-odyssey-tan/40 dark:border-odyssey-brown/50 rounded-xl text-odyssey-navy dark:text-odyssey-cream focus:outline-none focus:border-odyssey-tan/40 dark:border-odyssey-brown/50"
                     />
                 </form>
 
@@ -126,7 +126,7 @@ export function ChangeLocationModal({
                         <button
                             type="button"
                             onClick={handleSelectCustomQuery}
-                            className="w-full p-3 rounded-xl bg-orange-50 dark:bg-orange-950/40 border border-[#F06536]/40 text-left text-xs text-[#F06536] font-bold flex items-center justify-between"
+                            className="w-full p-3 rounded-xl bg-odyssey-cream/60 dark:bg-odyssey-navy dark:bg-odyssey-navy border border-odyssey-tan/40 dark:border-odyssey-brown/50 text-left text-xs text-odyssey-brown dark:text-odyssey-tan font-bold flex items-center justify-between"
                         >
                             <span>Geocode & Set location to "{query}"</span>
                             <MapPin className="w-3.5 h-3.5" />
@@ -143,16 +143,16 @@ export function ChangeLocationModal({
                                     }}
                                     className={`w-full p-2.5 rounded-xl text-left flex items-center justify-between text-xs font-semibold transition-all ${
                                         isCurrent
-                                            ? 'bg-orange-50/80 dark:bg-orange-950/40 border border-[#F06536]/40 text-[#F06536]'
-                                            : 'bg-slate-50/60 dark:bg-slate-900/60 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200'
+                                            ? 'bg-odyssey-cream/60 dark:bg-odyssey-navy/80 dark:bg-odyssey-navy border border-odyssey-tan/40 dark:border-odyssey-brown/50 text-odyssey-brown dark:text-odyssey-tan'
+                                            : 'bg-slate-50/60 dark:bg-odyssey-navy/60 hover:bg-slate-100 dark:hover:bg-slate-800 text-odyssey-navy dark:text-odyssey-cream'
                                     }`}
                                 >
                                     <div className="flex items-center gap-2">
-                                        <MapPin className={`w-3.5 h-3.5 ${isCurrent ? 'text-[#F06536]' : 'text-slate-400'}`} />
+                                        <MapPin className={`w-3.5 h-3.5 ${isCurrent ? 'text-odyssey-brown dark:text-odyssey-tan' : 'text-slate-400'}`} />
                                         <span>{item.city}</span>
                                     </div>
                                     {isCurrent ? (
-                                        <Check className="w-4 h-4 text-[#F06536]" />
+                                        <Check className="w-4 h-4 text-odyssey-brown dark:text-odyssey-tan" />
                                     ) : (
                                         <span className="text-[10px] text-slate-400 font-normal">{item.tag}</span>
                                     )}

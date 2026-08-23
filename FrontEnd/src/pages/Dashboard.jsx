@@ -18,7 +18,6 @@ import { NotificationsModal } from '../components/dashboard/NotificationsModal';
 import { TravelerProfileModal } from '../components/dashboard/TravelerProfileModal';
 import { TripDetailsModal } from '../components/dashboard/TripDetailsModal';
 import { PlaceMapModal } from '../components/dashboard/PlaceMapModal';
-import { MobileDeviceFrame } from '../components/common/MobileDeviceFrame';
 import { getCoordinatesForLocation } from '../services/locationService.js';
 import { Sparkles, MapPin, Plus } from 'lucide-react';
 
@@ -157,7 +156,6 @@ export default function Dashboard() {
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const [selectedTripDetails, setSelectedTripDetails] = useState(null);
     const [selectedPlaceForMap, setSelectedPlaceForMap] = useState(null);
-    const [isMobileFrame, setIsMobileFrame] = useState(() => localStorage.getItem('odyssey_mobile_frame_mode') === 'true');
 
     // Toast Notification System
     const [toast, setToast] = useState(null);
@@ -167,15 +165,6 @@ export default function Dashboard() {
         setTimeout(() => {
             setToast((prev) => (prev?.message === message ? null : prev));
         }, 3500);
-    };
-
-    const handleToggleMobileFrame = () => {
-        setIsMobileFrame((prev) => {
-            const next = !prev;
-            localStorage.setItem('odyssey_mobile_frame_mode', String(next));
-            showToast(next ? 'Switched to Mobile App Simulator 📱' : 'Switched to Full Screen Layout 💻', 'info');
-            return next;
-        });
     };
 
     // Notification Handlers
@@ -370,68 +359,62 @@ export default function Dashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-[#0B0F17] text-slate-900 dark:text-slate-100 font-sans selection:bg-[#F06536]/20 selection:text-[#F06536] transition-colors duration-200">
+        <div className="min-h-screen bg-odyssey-blue-poppy dark:bg-odyssey-navy text-odyssey-navy dark:text-odyssey-cream font-sans selection:bg-odyssey-brown/20 selection:text-odyssey-brown transition-colors duration-200">
             {/* Toast System */}
             <Toast toast={toast} onClose={() => setToast(null)} />
 
-            {/* Mobile Device Frame Wrapper (App View Mode) */}
-            <MobileDeviceFrame
-                isMobileFrame={isMobileFrame}
-                onToggleFrame={handleToggleMobileFrame}
+            {/* 1. Global Sticky Header */}
+            <Header
                 currentLocation={currentLocation}
-            >
-                {/* 1. Global Mobile App Header */}
-                <Header
-                    currentLocation={currentLocation}
-                    onChangeLocation={() => setIsChangeLocationOpen(true)}
-                    onOpenNotifications={() => setIsNotificationsOpen(true)}
-                    onOpenProfile={() => setIsProfileOpen(true)}
-                    unreadNotificationsCount={unreadNotificationsCount}
-                    userEmail={userEmail}
-                    syncStatus="Trips synced"
-                    isMobileFrame={isMobileFrame}
-                    onToggleMobileFrame={handleToggleMobileFrame}
-                />
+                onChangeLocation={() => setIsChangeLocationOpen(true)}
+                onOpenNotifications={() => setIsNotificationsOpen(true)}
+                onOpenProfile={() => setIsProfileOpen(true)}
+                unreadNotificationsCount={unreadNotificationsCount}
+                userEmail={userEmail}
+                syncStatus="Trips synced"
+            />
 
-                {/* Main Mobile-First Workspace Container */}
-                <main className={`mx-auto ${isMobileFrame ? 'w-full px-3 py-3.5 pb-28 space-y-5' : 'max-w-3xl px-3.5 sm:px-6 py-4 sm:py-6 pb-28 sm:pb-32 space-y-6 sm:space-y-7'} animate-in fade-in duration-200`}>
+            {/* Main Full-Width Responsive Workspace Container */}
+            <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 pb-28 sm:pb-32 space-y-6 sm:space-y-8 animate-in fade-in duration-200 w-full">
                 {/* 1. Explore Tab: Destination Discovery, Search, Live Travel Hub */}
                 {activeTab === 'explore' && (
                     <div className="space-y-5 animate-in fade-in zoom-in-95 duration-200">
-                        {/* Hero Greeting & Action Banner */}
-                        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#F06536] via-amber-500 to-[#E05325] dark:from-[#131B2E] dark:via-[#182238] dark:to-[#0B0F17] text-white p-4.5 sm:p-6 shadow-xl shadow-orange-500/10 dark:shadow-none dark:border dark:border-slate-800 transition-all duration-300">
-                            <div className="relative z-10 space-y-2.5">
-                                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/20 dark:bg-orange-500/20 text-white dark:text-[#FB923C] border border-white/20 dark:border-orange-500/30 text-[11px] font-bold shadow-xs">
-                                    <Sparkles className="w-3 h-3" />
-                                    <span>AI-Powered Travel Planning</span>
-                                </div>
-                                <h1 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight leading-tight">
-                                    Where are you going next?
-                                </h1>
-                                <p className="text-xs sm:text-sm text-white/90 dark:text-slate-300 leading-relaxed font-medium">
-                                    Discover tailored destinations, build smart day-wise itineraries, and experience effortless travel.
-                                </p>
-                                <div className="pt-1 flex flex-wrap items-center gap-2">
+                        {/* Clean, Spacious Stippl-Style Centered Hero Section */}
+                        <div className="text-center py-6 sm:py-10 space-y-4 max-w-2xl mx-auto">
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white dark:bg-odyssey-slate border border-odyssey-tan/40 dark:border-odyssey-brown/50 text-xs font-extrabold text-odyssey-brown dark:text-odyssey-tan shadow-xs">
+                                <Sparkles className="w-3.5 h-3.5" />
+                                <span>AI-Powered Travel Experience</span>
+                            </div>
+                            
+                            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-odyssey-navy dark:text-odyssey-cream leading-tight">
+                                Where are you going next?
+                            </h1>
+                            
+                            <p className="text-sm sm:text-base text-odyssey-slate dark:text-odyssey-tan font-medium max-w-lg mx-auto leading-relaxed">
+                                Discover tailored destinations, build smart day-wise itineraries, and experience effortless travel.
+                            </p>
+                            
+                            <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+                                <button
+                                    onClick={() => {
+                                        setPrefilledDestination(null);
+                                        setIsCreateTripOpen(true);
+                                    }}
+                                    className="px-8 py-3.5 rounded-full bg-odyssey-brown text-odyssey-cream hover:opacity-90 dark:bg-odyssey-tan dark:text-odyssey-navy dark:hover:opacity-90 font-extrabold text-sm sm:text-base shadow-lg shadow-odyssey-brown/25 flex items-center gap-2 active:scale-95 transition-all cursor-pointer"
+                                >
+                                    <Plus className="w-4 h-4 stroke-[2.5]" />
+                                    <span>Create Trip</span>
+                                </button>
+                                
+                                <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-odyssey-navy dark:text-odyssey-cream bg-white dark:bg-odyssey-slate px-6 py-3 rounded-full border border-odyssey-tan/40 dark:border-odyssey-brown/50 shadow-xs">
+                                    <MapPin className="w-4 h-4 text-odyssey-brown dark:text-odyssey-tan" />
+                                    <span>{currentLocation.split(',')[0]}</span>
                                     <button
-                                        onClick={() => {
-                                            setPrefilledDestination(null);
-                                            setIsCreateTripOpen(true);
-                                        }}
-                                        className="px-3.5 py-2 rounded-xl bg-slate-900 dark:bg-[#F06536] hover:bg-black dark:hover:bg-[#E05325] text-white font-bold text-xs shadow-md flex items-center gap-1.5 active:scale-95 transition-all"
+                                        onClick={() => setIsChangeLocationOpen(true)}
+                                        className="text-odyssey-brown dark:text-odyssey-tan hover:underline font-extrabold ml-1 cursor-pointer text-xs"
                                     >
-                                        <Plus className="w-3.5 h-3.5" />
-                                        <span>Create Trip</span>
+                                        Change
                                     </button>
-                                    <div className="flex items-center gap-1.5 text-xs font-semibold text-white/90 dark:text-slate-300 bg-black/20 dark:bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/15">
-                                        <MapPin className="w-3.5 h-3.5 text-amber-300" />
-                                        <span>{currentLocation.split(',')[0]}</span>
-                                        <button
-                                            onClick={() => setIsChangeLocationOpen(true)}
-                                            className="text-amber-200 dark:text-amber-300 hover:underline font-bold ml-0.5 text-[11px]"
-                                        >
-                                            Change
-                                        </button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -461,20 +444,20 @@ export default function Dashboard() {
                 {activeTab === 'trips' && (
                     <div className="space-y-5 animate-in fade-in zoom-in-95 duration-200">
                         {/* Quick Stats Pill */}
-                        <div className="p-3 rounded-2xl bg-white dark:bg-[#131B2E] border border-slate-200 dark:border-slate-800 shadow-sm flex items-center justify-around text-center">
+                        <div className="p-3 rounded-2xl bg-white dark:bg-odyssey-slate border border-odyssey-tan dark:border-odyssey-brown shadow-sm flex items-center justify-around text-center">
                             <div>
-                                <p className="text-base sm:text-lg font-extrabold text-[#F06536]">{stats.trips}</p>
-                                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-slate-500">Journeys</p>
+                                <p className="text-base sm:text-lg font-extrabold text-odyssey-brown dark:text-odyssey-tan">{stats.trips}</p>
+                                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-odyssey-slate dark:text-odyssey-tan/80">Journeys</p>
                             </div>
-                            <div className="h-6 w-[1px] bg-slate-200 dark:bg-slate-800" />
+                            <div className="h-6 w-[1px] bg-odyssey-tan/30 dark:bg-odyssey-brown/50" />
                             <div>
-                                <p className="text-base sm:text-lg font-extrabold text-[#F06536]">{stats.activities}</p>
-                                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-slate-500">Stops</p>
+                                <p className="text-base sm:text-lg font-extrabold text-odyssey-brown dark:text-odyssey-tan">{stats.activities}</p>
+                                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-odyssey-slate dark:text-odyssey-tan/80">Stops</p>
                             </div>
-                            <div className="h-6 w-[1px] bg-slate-200 dark:bg-slate-800" />
+                            <div className="h-6 w-[1px] bg-odyssey-tan/30 dark:bg-odyssey-brown/50" />
                             <div>
-                                <p className="text-base sm:text-lg font-extrabold text-[#F06536]">{stats.days}</p>
-                                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-slate-500">Days Out</p>
+                                <p className="text-base sm:text-lg font-extrabold text-odyssey-brown dark:text-odyssey-tan">{stats.days}</p>
+                                <p className="text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-odyssey-slate dark:text-odyssey-tan/80">Days Out</p>
                             </div>
                         </div>
 
@@ -542,31 +525,12 @@ export default function Dashboard() {
                 )}
             </main>
 
-            {/* Floating Action Button (Quick Create Trip FAB) */}
-            <button
-                onClick={() => {
-                    setPrefilledDestination(null);
-                    setIsCreateTripOpen(true);
-                }}
-                className={`${
-                    isMobileFrame
-                        ? 'sticky float-right bottom-20 mr-3 z-30 w-11 h-11'
-                        : 'fixed bottom-20 sm:bottom-24 right-4 sm:right-6 z-40 w-12 h-12'
-                } rounded-full bg-gradient-to-tr from-[#F06536] to-amber-500 hover:from-[#E05325] hover:to-orange-500 active:scale-90 text-white shadow-xl shadow-[#F06536]/40 flex items-center justify-center transition-all duration-200 group touch-manipulation border border-white/20`}
-                aria-label="Create Trip"
-                title="Create New Trip"
-            >
-                <Plus className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5] group-hover:rotate-90 transition-transform duration-200" />
-            </button>
-
             {/* 4-Feature Floating Action Navigation Dock */}
             <BottomNav
                 activeTab={activeTab}
                 onChangeTab={handleTabChange}
                 tripsCount={trips.filter((t) => t.status !== 'cancelled').length}
-                isMobileFrame={isMobileFrame}
             />
-            </MobileDeviceFrame>
 
             {/* Modals & Dialogs */}
             <CreateTripModal

@@ -255,7 +255,7 @@ export function PlacesInMind({
             <div className="flex items-center justify-between">
                 <div>
                     <div className="flex items-center gap-1.5">
-                        <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                        <h2 className="text-lg sm:text-xl font-bold text-odyssey-navy dark:text-odyssey-cream tracking-tight">
                             Places in Mind
                         </h2>
                         <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-gradient-to-r from-orange-500 to-amber-500 text-white flex items-center gap-1 shadow-xs">
@@ -263,8 +263,8 @@ export function PlacesInMind({
                             AI Recommendation Engine
                         </span>
                     </div>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
-                        Tailored for <span className="font-semibold text-slate-700 dark:text-slate-300">{currentLocation}</span> from your profile & preferences.
+                    <p className="text-xs text-odyssey-slate dark:text-odyssey-tan">
+                        Tailored for <span className="font-semibold text-odyssey-slate dark:text-odyssey-tan">{currentLocation}</span> from your profile & preferences.
                     </p>
                 </div>
             </div>
@@ -273,7 +273,7 @@ export function PlacesInMind({
                 {recommendedPlaces.map((place) => (
                     <div
                         key={place.id}
-                        className="group bg-white dark:bg-[#131B2E] rounded-3xl p-3.5 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg hover:border-orange-200 dark:hover:border-orange-900 transition-all duration-200 flex flex-col justify-between"
+                        className="group bg-white dark:bg-odyssey-slate rounded-3xl p-3.5 border border-odyssey-tan/40 dark:border-odyssey-brown/50 shadow-sm hover:shadow-lg hover:border-odyssey-tan/40 dark:hover:border-orange-900 transition-all duration-200 flex flex-col justify-between"
                     >
                         {/* Image Banner */}
                         <div className="relative h-32 rounded-2xl overflow-hidden bg-slate-900 mb-2.5">
@@ -293,7 +293,7 @@ export function PlacesInMind({
 
                             <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-white">
                                 <span className="text-xs font-bold truncate drop-shadow-sm">{place.name}</span>
-                                <div className="flex items-center gap-1 text-amber-300 text-xs font-bold bg-black/40 backdrop-blur-sm px-1.5 py-0.5 rounded-md flex-shrink-0">
+                                <div className="flex items-center gap-1 text-amber-300 text-xs font-bold bg-odyssey-navy/50 backdrop-blur-sm px-1.5 py-0.5 rounded-md flex-shrink-0">
                                     <Star className="w-3 h-3 fill-amber-300" />
                                     <span>{place.rating}</span>
                                 </div>
@@ -302,11 +302,11 @@ export function PlacesInMind({
 
                         {/* Match Reason & Distance callout */}
                         <div className="space-y-1.5 flex-1">
-                            <div className="p-2 rounded-xl bg-orange-50/70 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900/60 text-[11px] font-medium text-orange-900 dark:text-orange-200">
+                            <div className="p-2 rounded-xl bg-odyssey-cream/60 dark:bg-odyssey-navy/70 dark:bg-odyssey-navy border border-orange-100 dark:border-odyssey-brown/50 text-[11px] font-medium text-orange-900 dark:text-orange-200">
                                 🎯 {place.reason}
                             </div>
-                            <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 px-0.5">
-                                <span className="font-semibold text-[#F06536]">
+                            <div className="flex items-center justify-between text-[11px] text-odyssey-slate dark:text-odyssey-tan px-0.5">
+                                <span className="font-semibold text-odyssey-brown dark:text-odyssey-tan">
                                     🚀 {place.distanceText}
                                 </span>
                                 {place.travelEstimate && (
@@ -318,8 +318,8 @@ export function PlacesInMind({
                         </div>
 
                         {/* Bottom Plan Trip Action */}
-                        <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                            <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+                        <div className="mt-3 pt-2.5 border-t border-odyssey-tan/30 dark:border-odyssey-brown/50 flex items-center justify-between">
+                            <span className="text-[11px] font-semibold text-odyssey-slate dark:text-odyssey-tan">
                                 {place.budget} Tier
                             </span>
                             <button
@@ -339,7 +339,7 @@ export function PlacesInMind({
                                         vibe: place.vibe
                                     });
                                 }}
-                                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#F06536] hover:bg-[#E05325] text-white text-xs font-bold transition-all shadow-xs active:scale-95"
+                                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy hover:opacity-90 text-white text-xs font-bold transition-all shadow-xs active:scale-95"
                             >
                                 <Plus className="w-3 h-3" />
                                 <span>Plan Trip</span>

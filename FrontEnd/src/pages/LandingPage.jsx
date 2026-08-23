@@ -92,7 +92,7 @@ function LandingPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-[#0B0F17] text-slate-900 dark:text-slate-100 flex flex-col justify-center items-center px-4 py-6 sm:px-6 sm:py-10 md:py-12 font-sans selection:bg-[#F06536]/20 selection:text-[#F06536] transition-colors duration-200 relative">
+        <div className="min-h-screen bg-slate-50 dark:bg-odyssey-navy text-odyssey-navy dark:text-odyssey-cream flex flex-col justify-center items-center px-4 py-6 sm:px-6 sm:py-10 md:py-12 font-sans selection:bg-[#F06536]/20 selection:text-[#F06536] transition-colors duration-200 relative">
             {/* Theme Toggle Button */}
             <div className="absolute top-4 right-4 z-20">
                 <ThemeToggle />
@@ -149,7 +149,7 @@ function LandingPage() {
                 <div className="w-full space-y-5 px-1 sm:px-2">
                     {/* Form Header */}
                     <div>
-                        <h2 className="text-[22px] sm:text-[24px] font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
+                        <h2 className="text-[22px] sm:text-[24px] font-bold text-odyssey-navy dark:text-odyssey-cream tracking-tight flex items-center gap-2">
                             {authMode === 'signin' && (
                                 <>Welcome back, explorer 👋</>
                             )}
@@ -160,7 +160,7 @@ function LandingPage() {
                                 <>Forgot your way? 🗺️</>
                             )}
                         </h2>
-                        <p className="text-slate-600 dark:text-slate-400 text-[13.5px] mt-1">
+                        <p className="text-odyssey-slate dark:text-odyssey-tan text-[13.5px] mt-1">
                             {authMode === 'signin' && 'Ready to discover somewhere new?'}
                             {authMode === 'signup' && 'Create your account to start planning journeys.'}
                             {authMode === 'forgot' && 'Enter your email to receive password reset instructions.'}
@@ -189,7 +189,7 @@ function LandingPage() {
                     <form onSubmit={handleSubmit} className="space-y-4">
                         {/* Email Input */}
                         <div className="space-y-1.5">
-                            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">
+                            <label className="block text-xs font-semibold text-odyssey-slate dark:text-odyssey-tan">
                                 Email
                             </label>
                             <input
@@ -198,14 +198,14 @@ function LandingPage() {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="Enter your email"
-                                className="w-full px-4 py-3 bg-white dark:bg-[#131B2E] border border-slate-200 dark:border-slate-800 rounded-2xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#F06536]/20 focus:border-[#F06536] shadow-sm transition-all duration-150"
+                                className="w-full px-4 py-3 bg-white dark:bg-odyssey-slate border border-odyssey-tan/40 dark:border-odyssey-brown/50 rounded-2xl text-sm text-odyssey-navy dark:text-odyssey-cream placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#F06536]/20 focus:border-[#F06536] shadow-sm transition-all duration-150"
                             />
                         </div>
 
                         {/* Password Input (Hidden for forgot password mode) */}
                         {authMode !== 'forgot' && (
                             <div className="space-y-1.5">
-                                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">
+                                <label className="block text-xs font-semibold text-odyssey-slate dark:text-odyssey-tan">
                                     Password
                                 </label>
                                 <div className="relative flex items-center">
@@ -215,12 +215,12 @@ function LandingPage() {
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         placeholder="Enter your password"
-                                        className="w-full px-4 py-3 pr-11 bg-white dark:bg-[#131B2E] border border-slate-200 dark:border-slate-800 rounded-2xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#F06536]/20 focus:border-[#F06536] shadow-sm transition-all duration-150"
+                                        className="w-full px-4 py-3 pr-11 bg-white dark:bg-odyssey-slate border border-odyssey-tan/40 dark:border-odyssey-brown/50 rounded-2xl text-sm text-odyssey-navy dark:text-odyssey-cream placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#F06536]/20 focus:border-[#F06536] shadow-sm transition-all duration-150"
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-3.5 p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors focus:outline-none"
+                                        className="absolute right-3.5 p-1 text-slate-400 hover:text-odyssey-slate dark:hover:text-slate-300 transition-colors focus:outline-none"
                                         aria-label={showPassword ? 'Hide password' : 'Show password'}
                                     >
                                         {showPassword ? (
@@ -285,7 +285,7 @@ function LandingPage() {
                     {/* Mode Toggle Footer */}
                     <div className="text-center pt-2 sm:pt-3">
                         {authMode === 'signin' && (
-                            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                            <p className="text-xs sm:text-sm text-odyssey-slate dark:text-odyssey-tan">
                                 New here?{' '}
                                 <button
                                     type="button"
@@ -297,7 +297,7 @@ function LandingPage() {
                             </p>
                         )}
                         {authMode === 'signup' && (
-                            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                            <p className="text-xs sm:text-sm text-odyssey-slate dark:text-odyssey-tan">
                                 Already have an account?{' '}
                                 <button
                                     type="button"
@@ -309,7 +309,7 @@ function LandingPage() {
                             </p>
                         )}
                         {authMode === 'forgot' && (
-                            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                            <p className="text-xs sm:text-sm text-odyssey-slate dark:text-odyssey-tan">
                                 Remembered your password?{' '}
                                 <button
                                     type="button"

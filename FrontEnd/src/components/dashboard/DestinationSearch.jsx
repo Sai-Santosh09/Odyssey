@@ -23,23 +23,22 @@ export function DestinationSearch({
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' && searchQuery) {
-            // Scroll smoothly down to explore destinations section
             document.getElementById('section-explore')?.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
     return (
         <section className="space-y-4">
-            {/* Search Input Bar */}
+            {/* Fully Rounded Search Input Pill */}
             <div
-                className={`relative flex items-center bg-slate-100 dark:bg-[#182238] rounded-2xl border transition-all duration-200 shadow-sm ${
+                className={`relative flex items-center bg-white dark:bg-odyssey-slate rounded-full border transition-all duration-200 shadow-sm ${
                     isFocused
-                        ? 'border-[#F06536] ring-4 ring-[#F06536]/15 shadow-md shadow-[#F06536]/5'
-                        : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
+                        ? 'border-odyssey-brown dark:border-odyssey-tan ring-4 ring-odyssey-brown/15 dark:ring-odyssey-tan/15 shadow-md'
+                        : 'border-odyssey-tan/40 dark:border-odyssey-brown/50 hover:border-odyssey-brown/60 dark:hover:border-odyssey-tan/60'
                 }`}
             >
-                <div className="pl-4 pr-2 text-slate-400 dark:text-slate-500 flex items-center pointer-events-none">
-                    <Search className={`w-5 h-5 transition-colors ${isFocused ? 'text-[#F06536]' : 'text-slate-400 dark:text-slate-500'}`} />
+                <div className="absolute left-3.5 sm:left-4 text-odyssey-slate dark:text-odyssey-tan flex items-center pointer-events-none">
+                    <Search className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors ${isFocused ? 'text-odyssey-brown dark:text-odyssey-tan' : 'text-odyssey-slate dark:text-odyssey-tan'}`} />
                 </div>
                 <input
                     id="destination-search-input"
@@ -50,11 +49,11 @@ export function DestinationSearch({
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                     placeholder="Search any destination, country, city, spot, or hidden gem..."
-                    className="w-full py-3.5 pr-24 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 bg-transparent focus:outline-none font-medium"
+                    className="w-full py-3 sm:py-3.5 pl-10 sm:pl-12 pr-14 sm:pr-24 text-xs sm:text-sm text-odyssey-navy dark:text-odyssey-cream placeholder:text-odyssey-slate/60 dark:placeholder:text-odyssey-tan/60 bg-transparent focus:outline-none font-medium"
                 />
 
                 {/* Quick Action Badges / Controls in Input */}
-                <div className="absolute right-3 flex items-center gap-1.5">
+                <div className="absolute right-2.5 sm:right-3.5 flex items-center gap-1">
                     {searchQuery && (
                         <>
                             <a
@@ -62,7 +61,7 @@ export function DestinationSearch({
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onMouseDown={(e) => e.preventDefault()}
-                                className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-xl text-[11px] font-bold bg-white dark:bg-[#222f4c] text-slate-700 dark:text-slate-200 hover:text-[#F06536] border border-slate-200 dark:border-slate-700 shadow-2xs transition-all active:scale-95"
+                                className="hidden sm:flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-bold bg-odyssey-cream/50 dark:bg-odyssey-navy text-odyssey-navy dark:text-odyssey-cream hover:text-odyssey-brown border border-odyssey-tan/40 dark:border-odyssey-brown shadow-2xs transition-all active:scale-95"
                                 title="Search Google directly"
                             >
                                 <svg className="w-3 h-3" viewBox="0 0 24 24">
@@ -76,7 +75,7 @@ export function DestinationSearch({
                             </a>
                             <button
                                 onClick={() => setSearchQuery('')}
-                                className="p-1.5 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 transition-colors"
+                                className="p-1.5 rounded-full bg-odyssey-cream/60 dark:bg-odyssey-navy hover:opacity-80 text-odyssey-navy dark:text-odyssey-cream transition-colors cursor-pointer"
                                 aria-label="Clear search"
                             >
                                 <X className="w-3.5 h-3.5" />
@@ -86,7 +85,7 @@ export function DestinationSearch({
                 </div>
             </div>
 
-            {/* Scrollable Category Filter Pills */}
+            {/* Scrollable Category Filter Rounded-Full Pills */}
             <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar select-none">
                 {CATEGORY_FILTERS.map((cat) => {
                     const isActive = selectedCategory === cat.id;
@@ -94,10 +93,10 @@ export function DestinationSearch({
                         <button
                             key={cat.id}
                             onClick={() => setSelectedCategory(cat.id)}
-                            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-150 active:scale-95 touch-manipulation ${
+                            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-xs sm:text-sm whitespace-nowrap transition-all duration-150 active:scale-95 touch-manipulation cursor-pointer ${
                                 isActive
-                                    ? 'bg-[#F06536] text-white shadow-md shadow-[#F06536]/25'
-                                    : 'bg-white dark:bg-[#131B2E] hover:bg-slate-100 dark:hover:bg-[#182238] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 shadow-2xs'
+                                    ? 'bg-odyssey-brown text-odyssey-cream hover:opacity-90 dark:bg-odyssey-tan dark:text-odyssey-navy dark:hover:opacity-90 shadow-md font-extrabold'
+                                    : 'bg-white dark:bg-odyssey-slate hover:bg-odyssey-cream/30 dark:hover:bg-odyssey-navy/50 text-odyssey-navy dark:text-odyssey-cream border border-odyssey-tan/40 dark:border-odyssey-brown/50 shadow-xs font-semibold'
                             }`}
                         >
                             <span>{cat.icon}</span>

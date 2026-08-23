@@ -639,22 +639,22 @@ export function ExploreDestinations({
     const googleUrls = getGoogleSearchUrls(searchQuery);
 
     return (
-        <section className="space-y-4">
+        <section id="section-explore" className="space-y-4">
             {/* Section Header */}
             <div className="flex items-center justify-between flex-wrap gap-2">
                 <div>
                     <div className="flex items-center gap-2">
-                        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+                        <h2 className="text-xl sm:text-2xl font-black text-odyssey-navy dark:text-odyssey-cream tracking-tight">
                             Explore Destinations
                         </h2>
                         {isSearchingLive && (
-                            <span className="flex items-center gap-1 text-[11px] font-semibold text-[#F06536] bg-orange-50 dark:bg-orange-950/40 px-2.5 py-0.5 rounded-full border border-orange-200/60 dark:border-orange-900/60 animate-pulse">
+                            <span className="flex items-center gap-1 text-[11px] font-semibold text-odyssey-brown dark:text-odyssey-tan bg-white dark:bg-odyssey-slate px-2.5 py-0.5 rounded-full border border-odyssey-tan/40 dark:border-odyssey-brown/50 animate-pulse">
                                 <Loader2 className="w-3 h-3 animate-spin" />
                                 <span>Searching live...</span>
                             </span>
                         )}
                     </div>
-                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+                    <p className="text-xs sm:text-sm text-odyssey-slate dark:text-odyssey-tan mt-0.5 font-medium">
                         Hand-picked and live dynamic destinations across India and the globe.
                     </p>
                 </div>
@@ -665,7 +665,7 @@ export function ExploreDestinations({
                             href={googleUrls.search}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-white dark:bg-[#182238] hover:bg-slate-100 dark:hover:bg-[#202d4a] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-2xs hover:border-[#F06536]/40 transition-all"
+                            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-white dark:bg-odyssey-slate hover:bg-odyssey-cream/40 dark:hover:bg-odyssey-navy/60 text-odyssey-navy dark:text-odyssey-cream border border-odyssey-tan/40 dark:border-odyssey-brown/50 shadow-2xs transition-all"
                             title={`Search "${searchQuery}" on Google`}
                         >
                             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
@@ -675,92 +675,22 @@ export function ExploreDestinations({
                                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
                             </svg>
                             <span>Search on Google</span>
-                            <ExternalLink className="w-3 h-3 text-slate-400" />
+                            <ExternalLink className="w-3 h-3 text-odyssey-slate dark:text-odyssey-tan" />
                         </a>
                     )}
-                    <span className="text-xs font-bold text-[#F06536] bg-orange-50 dark:bg-orange-950/40 px-3 py-1 rounded-full border border-orange-200/60 dark:border-orange-900/60">
+                    <span className="text-xs font-bold text-odyssey-brown dark:text-odyssey-tan bg-white dark:bg-odyssey-slate px-3.5 py-1 rounded-full border border-odyssey-tan/40 dark:border-odyssey-brown/50 shadow-xs">
                         {destinationsList.length} destinations
                     </span>
                 </div>
             </div>
 
-            {/* Dynamic Google Search & Travel Intelligence Card (Always available when search query is active) */}
-            {searchQuery && (
-                <div className="bg-gradient-to-r from-blue-50/80 via-indigo-50/50 to-orange-50/60 dark:from-[#11192e] dark:via-[#141f38] dark:to-[#1a1c2d] rounded-2xl p-4 border border-blue-200/60 dark:border-blue-900/40 shadow-sm animate-in fade-in slide-in-from-top-2 duration-300">
-                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
-                        <div className="flex items-start gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-white dark:bg-[#182238] shadow-xs flex items-center justify-center border border-slate-200 dark:border-slate-700 shrink-0">
-                                <svg className="w-5 h-5" viewBox="0 0 24 24">
-                                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                                    <span>Google Search & Live Travel Hub</span>
-                                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 font-semibold border border-blue-200 dark:border-blue-800">
-                                        Live Web Links
-                                    </span>
-                                </h4>
-                                <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-                                    Search Google's real-time web, flight routes, hotels & maps for <strong className="text-slate-800 dark:text-slate-200">"{searchQuery}"</strong>
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Interactive Google Action Buttons */}
-                        <div className="flex items-center flex-wrap gap-2 w-full md:w-auto">
-                            <a
-                                href={googleUrls.search}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition-all active:scale-95"
-                            >
-                                <Search className="w-3.5 h-3.5" />
-                                <span>Google Web</span>
-                                <ExternalLink className="w-3 h-3 text-white/70" />
-                            </a>
-                            <a
-                                href={googleUrls.maps}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-white dark:bg-[#1e293b] hover:bg-slate-100 dark:hover:bg-[#28364e] text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all active:scale-95"
-                            >
-                                <MapPin className="w-3.5 h-3.5 text-emerald-500" />
-                                <span>Maps</span>
-                            </a>
-                            <a
-                                href={googleUrls.travel}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-white dark:bg-[#1e293b] hover:bg-slate-100 dark:hover:bg-[#28364e] text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all active:scale-95"
-                            >
-                                <Plane className="w-3.5 h-3.5 text-indigo-500" />
-                                <span>Travel</span>
-                            </a>
-                            <a
-                                href={googleUrls.hotels}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-white dark:bg-[#1e293b] hover:bg-slate-100 dark:hover:bg-[#28364e] text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all active:scale-95"
-                            >
-                                <Globe className="w-3.5 h-3.5 text-amber-500" />
-                                <span>Hotels</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            )}
-
             {/* Responsive Destination Cards Grid */}
             {destinationsList.length === 0 ? (
-                <div className="bg-white dark:bg-[#131B2E] rounded-3xl p-8 text-center border border-slate-200 dark:border-slate-800 space-y-3">
-                    <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                <div className="bg-white dark:bg-odyssey-slate rounded-3xl p-8 text-center border border-odyssey-tan/40 dark:border-odyssey-brown/50 space-y-3">
+                    <p className="text-sm font-semibold text-odyssey-navy dark:text-odyssey-cream">
                         {isSearchingLive ? 'Scanning live destination records...' : `Searching Google for "${searchQuery}"`}
                     </p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+                    <p className="text-xs text-odyssey-slate dark:text-odyssey-tan max-w-md mx-auto">
                         Odyssey is querying global map records and live travel engines. You can also explore instantly on Google Web:
                     </p>
                     <div className="pt-2">
@@ -768,7 +698,7 @@ export function ExploreDestinations({
                             href={googleUrls.search}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#F06536] hover:bg-[#E05325] text-white font-bold text-xs shadow-md transition-all active:scale-95"
+                            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-odyssey-brown text-odyssey-cream hover:opacity-90 dark:bg-odyssey-tan dark:text-odyssey-navy dark:hover:opacity-90 font-bold text-xs shadow-md transition-all active:scale-95"
                         >
                             <span>Search "{searchQuery}" on Google</span>
                             <ExternalLink className="w-3.5 h-3.5" />
@@ -790,7 +720,7 @@ export function ExploreDestinations({
                             <div
                                 key={destination.id}
                                 onClick={() => onSelectDestination(destination)}
-                                className="group bg-white dark:bg-[#131B2E] rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between"
+                                className="group bg-white dark:bg-odyssey-slate rounded-3xl overflow-hidden border border-odyssey-tan/40 dark:border-odyssey-brown/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between"
                             >
                                 {/* Card Image with Badges */}
                                 <div className="relative h-48 sm:h-52 overflow-hidden bg-slate-900">
@@ -802,53 +732,61 @@ export function ExploreDestinations({
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
-                                    {/* Top Badges */}
-                                    <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-                                        <div className="flex items-center gap-1.5 flex-wrap">
-                                            <span className="px-2.5 py-1 rounded-xl text-[11px] font-bold bg-slate-900/80 backdrop-blur-md text-white border border-white/10 shadow-sm">
+                                    {/* Top Badges & Actions */}
+                                    <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 z-10">
+                                        <div className="flex items-center gap-1.5 flex-wrap min-w-0">
+                                            <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-900/80 backdrop-blur-md text-white border border-white/10 shadow-sm truncate max-w-[150px]">
                                                 {destination.badge || destination.vibe}
                                             </span>
                                             {destination.isDynamic && (
-                                                <span className="px-2 py-0.5 rounded-lg text-[9px] font-bold bg-blue-500/85 backdrop-blur-md text-white border border-blue-300/30 flex items-center gap-1">
+                                                <span className="px-2.5 py-0.5 rounded-full text-[9px] font-bold bg-blue-500/85 backdrop-blur-md text-white border border-blue-300/30 flex items-center gap-1">
                                                     <Sparkles className="w-2.5 h-2.5" />
-                                                    <span>Live Discovery</span>
+                                                    <span>Live</span>
                                                 </span>
                                             )}
                                         </div>
-                                        <button
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                onToggleFavorite?.(destination.id);
-                                            }}
-                                            className={`p-2 rounded-full backdrop-blur-md transition-all active:scale-90 ${
-                                                isFav
-                                                    ? 'bg-rose-500 text-white'
-                                                    : 'bg-black/40 text-white/80 hover:text-white hover:bg-black/60'
-                                            }`}
-                                            aria-label="Save destination"
-                                        >
-                                            <Heart className={`w-3.5 h-3.5 ${isFav ? 'fill-white' : ''}`} />
-                                        </button>
-                                    </div>
 
-                                    {/* Bottom Title & Accurate Distance on Image */}
-                                    <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between text-white">
-                                        <div className="space-y-0.5 pr-2">
-                                            <h3 className="text-lg font-bold tracking-tight drop-shadow-md truncate">
-                                                {destination.name}
-                                            </h3>
-                                            <p className="text-xs text-white/80 flex items-center gap-1 drop-shadow-sm truncate">
-                                                <MapPin className="w-3 h-3 text-[#F06536] shrink-0" />
-                                                <span className="truncate">{destination.region}</span>
-                                            </p>
-                                        </div>
-                                        <div className="flex flex-col items-end gap-1 shrink-0">
-                                            <div className="flex items-center gap-1 text-amber-300 text-xs font-bold bg-black/40 backdrop-blur-sm px-2 py-1 rounded-lg">
+                                        <div className="flex items-center gap-1.5 flex-shrink-0">
+                                            {/* Star Rating Badge at Top Right */}
+                                            <div className="flex items-center gap-1 text-amber-300 text-xs font-black bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10 shadow-sm">
                                                 <Star className="w-3.5 h-3.5 fill-amber-300 text-amber-300" />
                                                 <span>{destination.rating}</span>
                                             </div>
-                                            <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#F06536]/90 text-white shadow-xs">
-                                                {distInfo.text}
+
+                                            {/* Favorite Button */}
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    onToggleFavorite?.(destination.id);
+                                                }}
+                                                className={`p-2 rounded-full backdrop-blur-md transition-all active:scale-90 shadow-sm border border-white/10 cursor-pointer ${
+                                                    isFav
+                                                        ? 'bg-rose-500 text-white'
+                                                        : 'bg-black/50 text-white/80 hover:text-white hover:bg-black/70'
+                                                }`}
+                                                aria-label="Save destination"
+                                            >
+                                                <Heart className={`w-3.5 h-3.5 ${isFav ? 'fill-white' : ''}`} />
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Bottom Title & Accurate Distance on Image */}
+                                    <div className="absolute bottom-3 left-3 right-3 space-y-1 text-white z-10">
+                                        <h3 className="text-base sm:text-lg font-extrabold tracking-tight drop-shadow-md truncate">
+                                            {destination.name}
+                                        </h3>
+                                        
+                                        <div className="flex items-center justify-between gap-2">
+                                            <p className="text-xs text-white/90 flex items-center gap-1 drop-shadow-sm truncate min-w-0 flex-1 font-medium">
+                                                <MapPin className="w-3 h-3 text-odyssey-tan shrink-0" />
+                                                <span className="truncate">{destination.region}</span>
+                                            </p>
+
+                                            {/* Beautiful, non-truncated distance pill */}
+                                            <span className="inline-flex items-center gap-1 whitespace-nowrap flex-shrink-0 px-3 py-0.5 rounded-full text-[10px] font-extrabold bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy shadow-md border border-white/20">
+                                                <span>📍</span>
+                                                <span>{distInfo.text}</span>
                                             </span>
                                         </div>
                                     </div>
@@ -856,7 +794,7 @@ export function ExploreDestinations({
 
                                 {/* Content Details */}
                                 <div className="p-4 sm:p-5 space-y-3 flex-1 flex flex-col justify-between">
-                                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
+                                    <p className="text-xs sm:text-sm text-odyssey-slate dark:text-odyssey-tan line-clamp-2 leading-relaxed">
                                         {destination.description}
                                     </p>
 
@@ -866,7 +804,7 @@ export function ExploreDestinations({
                                             {destination.highlights.slice(0, 2).map((hl, i) => (
                                                 <span
                                                     key={i}
-                                                    className="px-2 py-0.5 rounded-lg text-[10px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                                                    className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-odyssey-cream/50 dark:bg-odyssey-navy text-odyssey-navy dark:text-odyssey-cream border border-odyssey-tan/30 dark:border-odyssey-brown/40"
                                                 >
                                                     ✨ {hl}
                                                 </span>
@@ -875,15 +813,15 @@ export function ExploreDestinations({
                                     )}
 
                                     {/* Action Bar */}
-                                    <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                                        <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">
+                                    <div className="pt-2 border-t border-odyssey-tan/20 dark:border-odyssey-brown/30 flex items-center justify-between">
+                                        <span className="text-[11px] font-medium text-odyssey-slate dark:text-odyssey-tan">
                                             {distInfo.travelEstimate ? (
-                                                <span>✈️ <strong className="text-slate-700 dark:text-slate-300 font-semibold">{distInfo.travelEstimate}</strong></span>
+                                                <span>✈️ <strong className="text-odyssey-navy dark:text-odyssey-cream font-bold">{distInfo.travelEstimate}</strong></span>
                                             ) : (
-                                                <span>Best: <strong className="text-slate-700 dark:text-slate-300 font-semibold">{destination.bestTime}</strong></span>
+                                                <span>Best: <strong className="text-odyssey-navy dark:text-odyssey-cream font-bold">{destination.bestTime}</strong></span>
                                             )}
                                         </span>
-                                        <span className="text-xs font-bold text-[#F06536] group-hover:text-[#E05325] flex items-center gap-1 group-hover:translate-x-0.5 transition-all">
+                                        <span className="text-xs font-bold text-odyssey-brown dark:text-odyssey-tan group-hover:opacity-80 flex items-center gap-1 group-hover:translate-x-0.5 transition-all">
                                             <span>View Guide</span>
                                             <ArrowRight className="w-3.5 h-3.5" />
                                         </span>

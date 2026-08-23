@@ -7,21 +7,33 @@ import { calculateExactDistanceKm } from './locationService';
 import { getGoogleStreetViewUrl, loadGoogleMapsScript } from './mapsService';
 import { getPlacePhoto } from './imageService';
 
-// Category mapping helper based on Google Places types
+// Category mapping helper based on Google Places types and semantic place names
 function categorizeGooglePlace(types = [], name = '') {
     const n = (name || '').toLowerCase();
     const t = Array.isArray(types) ? types : [];
 
-    if (t.includes('cafe') || t.includes('bakery') || t.includes('coffee_shop') || n.includes('cafe') || n.includes('coffee') || n.includes('roastery')) {
+    if (t.includes('cafe') || t.includes('bakery') || t.includes('coffee_shop') || n.includes('cafe') || n.includes('coffee') || n.includes('roastery') || n.includes('bakery') || n.includes('bistro')) {
         return { category: 'Café', icon: '☕', type: 'cafe' };
     }
-    if (t.includes('restaurant') || t.includes('food') || t.includes('meal_takeaway') || t.includes('bar') || n.includes('restaurant') || n.includes('biryani') || n.includes('kitchen') || n.includes('diner')) {
+    if (t.includes('restaurant') || t.includes('food') || t.includes('meal_takeaway') || t.includes('bar') || n.includes('restaurant') || n.includes('biryani') || n.includes('kitchen') || n.includes('diner') || n.includes('dhaba') || n.includes('bawarchi') || n.includes('paradise')) {
         return { category: 'Restaurant', icon: '🍛', type: 'restaurant' };
     }
-    if (t.includes('park') || t.includes('natural_feature') || t.includes('campground') || n.includes('park') || n.includes('lake') || n.includes('garden') || n.includes('waterfall') || n.includes('trail')) {
-        return { category: 'Activity', icon: '🌲', type: 'activity' };
+    if (n.includes('railway') || n.includes('station') || n.includes('metro') || n.includes('train') || n.includes('junction') || n.includes('terminal')) {
+        return { category: 'Transit Hub', icon: '🚆', type: 'transit' };
     }
-    if (t.includes('museum') || t.includes('art_gallery') || t.includes('amusement_park') || t.includes('zoo') || n.includes('museum') || n.includes('palace') || n.includes('fort') || n.includes('temple')) {
+    if (n.includes('temple') || n.includes('mandir') || n.includes('kovil') || n.includes('devalayam') || n.includes('shrine') || n.includes('mosque') || n.includes('masjid') || n.includes('church')) {
+        return { category: 'Spiritual', icon: '🛕', type: 'temple' };
+    }
+    if (n.includes('college') || n.includes('university') || n.includes('institute') || n.includes('campus') || n.includes('tech park') || n.includes('infosys') || n.includes('sez') || n.includes('pocharam')) {
+        return { category: 'Campus & Tech', icon: '🏢', type: 'campus' };
+    }
+    if (t.includes('park') || t.includes('natural_feature') || t.includes('campground') || n.includes('park') || n.includes('lake') || n.includes('garden') || n.includes('waterfall') || n.includes('trail') || n.includes('cheruvu') || n.includes('sagar')) {
+        return { category: 'Nature & Lakes', icon: '🌲', type: 'activity' };
+    }
+    if (n.includes('village') || n.includes('district') || n.includes('mandal') || n.includes('town') || n.includes('panchayat') || n.includes('bogaram') || n.includes('gowrelli') || n.includes('ghatkesar')) {
+        return { category: 'Township', icon: '🌾', type: 'town' };
+    }
+    if (t.includes('museum') || t.includes('art_gallery') || t.includes('amusement_park') || t.includes('zoo') || n.includes('museum') || n.includes('palace') || n.includes('fort') || n.includes('citadel')) {
         return { category: 'Attraction', icon: '🏰', type: 'attraction' };
     }
     return { category: 'Landmark', icon: '🏛️', type: 'landmark' };
@@ -250,12 +262,12 @@ export async function fetchLiveGooglePlaces(userLat, userLng, locationName = '',
 }
 
 /**
- * 2. AI Live GeoSearch via Wikipedia Geosearch
+ * 2. AI Live GeoSearch via Wikipedia Geosearch with Real-World Photo & Thumbnail Discovery
  */
 export async function fetchLiveAiGeoPlaces(userLat, userLng, locationName = '', radiusMeters = 8000, isExpanded = false) {
     try {
         const radius = Math.min(10000, radiusMeters);
-        const wikiUrl = `https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gscoord=${userLat}|${userLng}&gsradius=${radius}&gslimit=10&format=json&origin=*`;
+        const wikiUrl = `https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gscoord=${userLat}|${userLng}&gsradius=${radius}&gslimit=12&format=json&origin=*`;
         const res = await fetch(wikiUrl);
 
         if (res.ok) {
@@ -263,22 +275,45 @@ export async function fetchLiveAiGeoPlaces(userLat, userLng, locationName = '', 
             const geoItems = data.query?.geosearch || [];
 
             if (geoItems.length > 0) {
+                // Fetch authentic page thumbnails and descriptions from Wikipedia in parallel
+                let pagesMap = {};
+                try {
+                    const pageIds = geoItems.map(i => i.pageid).filter(Boolean).join('|');
+                    if (pageIds) {
+                        const imgUrl = `https://en.wikipedia.org/w/api.php?action=query&pageids=${pageIds}&prop=pageimages|description&pithumbsize=800&format=json&origin=*`;
+                        const imgRes = await fetch(imgUrl);
+                        if (imgRes.ok) {
+                            const imgData = await imgRes.json();
+                            pagesMap = imgData.query?.pages || {};
+                        }
+                    }
+                } catch (imgErr) {
+                    console.warn('Wikipedia pageimages fetch warning', imgErr);
+                }
+
                 return geoItems.map((item, idx) => {
+                    const pageData = pagesMap[item.pageid] || {};
+                    const wikiThumbnail = pageData.thumbnail?.source;
+                    const wikiDesc = pageData.description || `Famous local place in ${locationName}`;
                     const { km, text } = calculateExactDistanceKm(userLat, userLng, item.lat, item.lon);
-                    const photo = getPlacePhoto(item.title, 'Landmark', idx);
+                    
+                    const { category, icon, type } = categorizeGooglePlace([], item.title);
+                    
+                    // Use real Wikipedia photo if present, otherwise resolve semantically by place title & description
+                    const photo = wikiThumbnail || getPlacePhoto(item.title, category, idx, wikiDesc);
 
                     return {
                         id: `wiki_${item.pageid || idx}`,
                         name: item.title,
-                        category: idx % 2 === 0 ? 'Landmark' : 'Attraction',
-                        icon: idx % 2 === 0 ? '🏛️' : '🏰',
-                        type: idx % 2 === 0 ? 'landmark' : 'attraction',
+                        category,
+                        icon,
+                        type,
                         lat: item.lat,
                         lng: item.lon,
                         rating: 4.8,
                         reviewsCount: 1540 + idx * 120,
-                        timings: 'Open Daily • Visitor Point',
-                        description: `Famous landmark and visitor point near ${locationName}`,
+                        timings: 'Open Daily • Live Visitor Point',
+                        description: wikiDesc,
                         distanceKm: km,
                         distanceText: text,
                         image: photo,

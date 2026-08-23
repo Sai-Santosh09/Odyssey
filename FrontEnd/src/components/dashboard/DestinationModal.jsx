@@ -33,7 +33,7 @@ export function DestinationModal({
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white dark:bg-[#131B2E] rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 dark:border-slate-800 p-0 animate-in zoom-in-95 duration-200 overflow-hidden transition-colors">
+            <div className="bg-white dark:bg-odyssey-slate rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-odyssey-tan/40 dark:border-odyssey-brown/50 p-0 animate-in zoom-in-95 duration-200 overflow-hidden transition-colors">
                 {/* Hero Media / Map Header */}
                 <div className="relative h-56 sm:h-64 bg-slate-900 overflow-hidden">
                     {viewMode === 'map' ? (
@@ -64,7 +64,7 @@ export function DestinationModal({
                             onClick={() => setViewMode('photo')}
                             className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1.5 ${
                                 viewMode === 'photo'
-                                    ? 'bg-[#F06536] text-white shadow-xs'
+                                    ? 'bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy text-white shadow-xs'
                                     : 'text-white/80 hover:text-white'
                             }`}
                         >
@@ -75,7 +75,7 @@ export function DestinationModal({
                             onClick={() => setViewMode('map')}
                             className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1.5 ${
                                 viewMode === 'map'
-                                    ? 'bg-[#F06536] text-white shadow-xs'
+                                    ? 'bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy text-white shadow-xs'
                                     : 'text-white/80 hover:text-white'
                             }`}
                         >
@@ -87,7 +87,7 @@ export function DestinationModal({
                     {/* Close Button at Top Right */}
                     <button
                         onClick={onClose}
-                        className="absolute top-3.5 right-3.5 p-2 rounded-full bg-black/50 backdrop-blur-md text-white hover:bg-black/80 transition-colors z-30 shadow-md"
+                        className="absolute top-3.5 right-3.5 p-2 rounded-full bg-odyssey-navy/60 backdrop-blur-md text-white hover:bg-black/80 transition-colors z-30 shadow-md"
                         aria-label="Close modal"
                     >
                         <X className="w-4 h-4" />
@@ -97,21 +97,21 @@ export function DestinationModal({
                 {/* Body Content */}
                 <div className="p-5 sm:p-6 space-y-4">
                     {/* Header info in body */}
-                    <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                    <div className="flex items-center justify-between border-b border-odyssey-tan/30 dark:border-odyssey-brown/50 pb-3">
                         <div>
-                            <h3 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                            <h3 className="text-xl font-extrabold text-odyssey-navy dark:text-odyssey-cream tracking-tight">
                                 {destination.name}
                             </h3>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5 mt-0.5">
-                                <MapPin className="w-3.5 h-3.5 text-[#F06536]" />
+                            <p className="text-xs text-odyssey-slate dark:text-odyssey-tan flex items-center gap-1.5 mt-0.5">
+                                <MapPin className="w-3.5 h-3.5 text-odyssey-brown dark:text-odyssey-tan" />
                                 <span>{destination.region}</span>
                                 <span>•</span>
-                                <span className="font-bold text-[#F06536]">{distInfo.text} away</span>
+                                <span className="font-bold text-odyssey-brown dark:text-odyssey-tan">{distInfo.text}</span>
                             </p>
                         </div>
                         <div className="flex flex-col items-end gap-1">
                             {destination.vibe && (
-                                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-orange-100 dark:bg-orange-950/50 text-[#F06536]">
+                                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-odyssey-cream/60 dark:bg-odyssey-navy dark:bg-odyssey-navy text-odyssey-brown dark:text-odyssey-tan">
                                     {destination.vibe}
                                 </span>
                             )}
@@ -125,16 +125,16 @@ export function DestinationModal({
                     </div>
 
                     {/* Geodesic Distance Highlight Bar */}
-                    <div className="p-3 rounded-2xl bg-orange-50/80 dark:bg-orange-950/30 border border-orange-200/60 dark:border-orange-900/60 flex items-center justify-between text-xs">
+                    <div className="p-3 rounded-2xl bg-odyssey-cream/60 dark:bg-odyssey-navy/80 dark:bg-odyssey-navy border border-odyssey-tan/40 dark:border-odyssey-brown/50 flex items-center justify-between text-xs">
                         <div className="flex items-center gap-2">
-                            <div className="w-7 h-7 rounded-xl bg-[#F06536] text-white flex items-center justify-center font-bold">
+                            <div className="w-7 h-7 rounded-xl bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy text-white flex items-center justify-center font-bold">
                                 ✈️
                             </div>
                             <div>
-                                <p className="font-bold text-slate-900 dark:text-white">
+                                <p className="font-bold text-odyssey-navy dark:text-odyssey-cream">
                                     {distInfo.fullBadge}
                                 </p>
-                                <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                                <p className="text-[11px] text-odyssey-slate dark:text-odyssey-tan">
                                     Calculated from your current location ({currentLocation})
                                 </p>
                             </div>
@@ -143,10 +143,10 @@ export function DestinationModal({
 
                     {/* Description */}
                     <div className="space-y-1">
-                        <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                        <h4 className="text-xs font-bold text-odyssey-slate dark:text-odyssey-tan uppercase tracking-wider">
                             About Destination
                         </h4>
-                        <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+                        <p className="text-xs sm:text-sm text-odyssey-slate dark:text-odyssey-tan leading-relaxed font-medium">
                             {destination.description}
                         </p>
                     </div>
@@ -154,12 +154,12 @@ export function DestinationModal({
                     {/* Highlights */}
                     {destination.highlights && (
                         <div className="space-y-2">
-                            <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                            <h4 className="text-xs font-bold text-odyssey-slate dark:text-odyssey-tan uppercase tracking-wider">
                                 Odyssey Highlights
                             </h4>
                             <div className="space-y-1.5">
                                 {destination.highlights.map((h, i) => (
-                                    <div key={i} className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-900 p-2.5 rounded-xl border border-slate-100 dark:border-slate-800">
+                                    <div key={i} className="flex items-center gap-2 text-xs text-odyssey-slate dark:text-odyssey-tan bg-slate-50 dark:bg-odyssey-navy p-2.5 rounded-xl border border-odyssey-tan/30 dark:border-odyssey-brown/50">
                                         <div className="w-4 h-4 rounded-full bg-emerald-100 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
                                             <Check className="w-2.5 h-2.5" />
                                         </div>
@@ -184,7 +184,7 @@ export function DestinationModal({
                                 });
                                 onClose();
                             }}
-                            className="w-full bg-[#F06536] hover:bg-[#E05325] active:scale-[0.99] text-white font-bold text-sm py-3.5 px-4 rounded-2xl shadow-lg shadow-[#F06536]/25 transition-all flex items-center justify-center gap-2"
+                            className="w-full bg-odyssey-brown text-odyssey-cream dark:bg-odyssey-tan dark:text-odyssey-navy hover:opacity-90 active:scale-[0.99] text-white font-bold text-sm py-3.5 px-4 rounded-2xl shadow-lg shadow-[#F06536]/25 transition-all flex items-center justify-center gap-2"
                         >
                             <span>Plan Trip to {destination.name}</span>
                             <ArrowRight className="w-4 h-4" />
